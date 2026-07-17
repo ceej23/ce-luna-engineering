@@ -143,6 +143,42 @@ runtime. Teams can change tools, names, or automation while retaining:
 - explicit risk and authorization gates; and
 - verification evidence attached to the decision.
 
+## Migrating from a Matt Pocock skills suite
+
+Teams moving from the Matt Pocock skills suite can adopt this model as a
+workflow change, not a judgement about any product. Retire the old lifecycle
+defaults as defaults, then use the CE lifecycle with Sol accountable for
+decisions and Luna makers and reviewers operating within explicit packets.
+The capability mapping is intentionally at the practice level:
+
+| Retiring lifecycle/default skill role | CE + Sol/Luna capability |
+| --- | --- |
+| Planning and task shaping | **Frame → Plan (Sol):** clarify intent, risks, constraints, and acceptance criteria before dispatching work. |
+| Implementation and execution | **Make (Luna) → Integrate (Sol):** bounded implementation units, explicit ownership, and a stable baseline. |
+| Debugging and diagnosis | **Frame/Plan → Make → Verify:** reproduce the behavior, make the smallest scoped change, and attach evidence to the decision. |
+| Review and QA | **Review (independent Luna) → Synthesize (Sol):** read-only findings followed by lead-owned remediation and acceptance. |
+| Handoff and delivery | **Compound + delivery gate (Sol):** capture learning and perform separately authorized commits, releases, or deployments. |
+
+Specialist practices such as TDD, codebase design, and domain modeling remain
+useful optional quality lenses. Apply them inside the CE lifecycle when the
+work benefits from them; they complement the lifecycle rather than becoming a
+second competing default.
+
+A safe incremental adoption sequence is:
+
+1. Keep the existing skills available while documenting CE + Sol/Luna as the
+   single default workflow for new work.
+2. Pilot one bounded change with explicit packets, stable-baseline review, and
+   parent-owned verification.
+3. Move recurring work to the CE lifecycle, retaining specialist practices as
+   opt-in lenses where they add value.
+4. Retire the former defaults only after the team has one agreed workflow and
+   evidence that the gates and role boundaries are understood.
+
+Avoid enabling two competing default workflows at once: choose CE + Sol/Luna
+as the default during the transition, and invoke any legacy or specialist
+practice explicitly for a particular unit.
+
 ## License
 
 This guide is available under the [MIT License](LICENSE).
