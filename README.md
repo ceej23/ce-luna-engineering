@@ -179,6 +179,54 @@ Avoid enabling two competing default workflows at once: choose CE + Sol/Luna
 as the default during the transition, and invoke any legacy or specialist
 practice explicitly for a particular unit.
 
+## Adopting the model in AGENTS.md
+
+If you maintain an AGENTS.md file that shapes an active Codex context, add a
+small policy such as this one (adapt the wording to your team; it is
+tool-agnostic):
+
+```markdown
+## Engineering lifecycle
+
+Use Compound Engineering with Sol/Luna as the single default lifecycle:
+Sol owns framing, planning, architecture, security, integration, synthesis,
+verification, and acceptance; Luna makers implement bounded units; an
+independent Luna reviewer performs read-only review. Specialist practices such
+as TDD, domain modeling, or codebase design are optional lenses within that
+lifecycle, not competing default workflows.
+```
+
+Before editing policy, inventory every applicable AGENTS.md in the active
+context, from parent/global locations through the repository-local file. Read
+the effective instructions and classify each apparent disagreement as either:
+
+- a lifecycle/default-routing conflict (for example, another mandatory
+  lifecycle, assigning lead-only decisions to workers, or agent/worker
+  directives that autonomously perform external commit/push/deploy writes or
+  bypass lead or explicit authorization); lead- or CI-controlled delivery
+  rules are compatible and should be preserved; or
+- a compatible domain or repository rule (for example, testing and linting
+  conventions, domain requirements, or security controls).
+
+Remove or replace only directives in the first category. Preserve unrelated
+domain, security, and repository-specific instructions, and never bulk-delete
+an entire AGENTS.md. Parent/global guidance and repository-local guidance may
+have different precedence in a given tool or runtime; do not assume universal
+AGENTS.md semantics. Consult and document the target runtime's precedence rules
+and use its effective-context inspection when available. A repository-local
+policy may add stricter rules only where that runtime permits it, and never
+weakens safety controls or Sol/Luna role boundaries. If the runtime cannot
+deterministically inspect precedence and effective instructions, leave any
+parent/global conflict explicitly unresolved rather than assuming it was
+removed.
+
+After making the edit, inspect the diff and have it reviewed for scope,
+precedence, and preserved instructions. Start a fresh Codex session so the
+effective context is reloaded. Where the runtime supports effective-context
+inspection, verify that the intended lifecycle is the only default and that
+unrelated rules remain active; otherwise, record that this verification is
+conditional and retain unresolved precedence conflicts.
+
 ## License
 
 This guide is available under the [MIT License](LICENSE).
