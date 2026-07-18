@@ -1,0 +1,4 @@
+interface:
+  display_name: "CE + Sol/Luna Engineering"
+  short_description: "Run accountable CE + Sol/Luna engineering"
+  default_prompt: "Use $ce-luna-engineering to run this engineering task through the CE + Sol/Luna lifecycle."
