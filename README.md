@@ -8,6 +8,21 @@ Compound Engineering (CE) lifecycle with a clear separation between a lead
 The model is intentionally tool- and vendor-neutral. Adapt the names to your
 team if needed; preserve the boundaries and evidence requirements.
 
+## Canonical cross-surface source
+
+The portable authority is [`policy/engineering-lifecycle.md`](policy/engineering-lifecycle.md).
+The decision record, operating guide, and native adapters live under `docs/`
+and `surfaces/`. Git is canonical; installed Codex files are deployments.
+Use [`manifest/codex-files.tsv`](manifest/codex-files.tsv) with the read-only
+drift checker, and opt into installation only with
+`scripts/install-codex.sh --apply` (set `CODEX_ROOT` to test an alternate
+target). The manifest contains complete agent and skill files only. Merge the
+tracked `AGENTS.md` and `config.toml` fragments manually so unrelated policy
+and machine settings are preserved. Backups are made when an existing manifest
+target differs. Credentials, MCP details, machine paths, trust settings,
+caches, histories, databases, and unrelated personal configuration are
+deliberately excluded.
+
 ## The lifecycle
 
 ```text

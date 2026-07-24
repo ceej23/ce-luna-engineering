@@ -1,0 +1,6 @@
+# repository-relative source<TAB>CODEX_ROOT-relative target
+surfaces/codex/agents/luna-maker.toml	agents/luna-maker.toml
+surfaces/codex/agents/luna-reviewer.toml	agents/luna-reviewer.toml
+surfaces/codex/skills/ce-luna-engineering/SKILL.md	skills/ce-luna-engineering/SKILL.md
+surfaces/codex/skills/ce-luna-engineering/agents/openai.yaml	skills/ce-luna-engineering/agents/openai.yaml
+surfaces/codex/skills/ce-luna-engineering/references/worker-packets.md	skills/ce-luna-engineering/references/worker-packets.md

@@ -1,0 +1,6 @@
+---
+description: CE + Sol/Luna engineering lifecycle
+alwaysApply: false
+---
+
+Follow the canonical policy at `policy/engineering-lifecycle.md`. Sol owns intent, planning, architecture, security, integration, synthesis, verification, acceptance, and authorization for external writes. Implement only bounded packets with exact scope and observable criteria. Review must be independent, stable-diff, and read-only; reviewers report evidence and do not edit or accept. Cursor rules preserve these behavioral invariants but do not claim Codex named-agent routing, model selection, sandbox, or approval guarantees.
