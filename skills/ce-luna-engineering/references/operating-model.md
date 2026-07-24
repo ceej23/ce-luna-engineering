@@ -1,3 +1,8 @@
+<!--
+This is the self-contained bundled copy of the repository README used by the
+installed skill. scripts/validate_skill.py guards it against canonical drift.
+-->
+<!-- BEGIN CANONICAL README -->
 # CE + Sol/Luna Engineering
 
 CE + Sol/Luna is a practical operating model for software work that needs both
