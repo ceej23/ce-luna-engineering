@@ -1,0 +1,16 @@
+# Safe workflow fragment; credentials, MCP servers, machine paths, trust settings, and preferences are excluded.
+model = "gpt-5.6-terra"
+model_provider = "openai"
+model_reasoning_effort = "medium"
+
+[agents]
+max_threads = 6
+max_depth = 1
+
+[features]
+multi_agent = true
+js_repl = false
+
+[features.multi_agent_v2]
+hide_spawn_agent_metadata = false
+tool_namespace = "agents"

@@ -25,5 +25,19 @@ more reusable for engineering teams.
 - Explain the motivation and trade-offs in your pull request. Documentation
   changes should include the exact checks you ran and their results.
 
+## Cross-surface workflow changes
+
+Treat `policy/engineering-lifecycle.md` as the authority for shared behavior.
+When changing it, update affected Codex, Claude Code, and Cursor adapters plus
+the operating guide and README. Keep the Codex manifest explicit and fragments
+safe: never add credentials, MCP/connectors, machine paths, trust settings,
+caches, histories, databases, or complete personal configuration.
+
+Before proposing a change, run `bash -n scripts/check-codex-drift.sh`,
+`bash -n scripts/install-codex.sh`, and temporary-root drift/install smoke tests.
+The checker is read-only; installation requires `--apply` and should be tested
+with `CODEX_ROOT` rather than an active home configuration. Drift or scope
+changes should be explained in the contribution.
+
 This repository is distributed under the MIT License; see [LICENSE](LICENSE)
 for the applicable terms.
