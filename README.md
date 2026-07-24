@@ -6,13 +6,16 @@ Compound Engineering (CE) lifecycle with a clear separation between a lead
 (Sol), an implementation maker (Luna), and an independent reviewer (Luna).
 
 The model is intentionally tool- and vendor-neutral. Adapt the names to your
-team if needed; preserve the boundaries and evidence requirements.
+team if needed; preserve the boundaries and evidence requirements. All
+software-repository changes use this lifecycle; direct handling is limited to
+read-only inspection, explanation, planning, and documentation-only work.
 
 ## Canonical cross-surface source
 
 The portable authority is [`policy/engineering-lifecycle.md`](policy/engineering-lifecycle.md).
-The decision record, operating guide, and native adapters live under `docs/`
-and `surfaces/`. Git is canonical; installed Codex files are deployments.
+[`AGENTS.md`](AGENTS.md) is the complete portable Codex policy; the decision
+record, operating guide, and native adapters live under `docs/` and `surfaces/`.
+Git is canonical; installed Codex files are deployments.
 Use [`manifest/codex-files.tsv`](manifest/codex-files.tsv) with the read-only
 drift checker, and opt into installation only with
 `scripts/install-codex.sh --apply` (set `CODEX_ROOT` to test an alternate
@@ -182,7 +185,7 @@ second competing default.
 A safe incremental adoption sequence is:
 
 1. Keep the existing skills available while documenting CE + Sol/Luna as the
-   single default workflow for new work.
+   required workflow for software-repository changes.
 2. Pilot one bounded change with explicit packets, stable-baseline review, and
    parent-owned verification.
 3. Move recurring work to the CE lifecycle, retaining specialist practices as

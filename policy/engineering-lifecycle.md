@@ -2,6 +2,13 @@
 
 This repository is the canonical, reviewable source for the CE + Sol/Luna workflow. The vendor-neutral policy owns lifecycle semantics; Codex, Claude Code, and Cursor files are adapters that cite this policy.
 
+All software-repository changes must follow this lifecycle. Read-only
+inspection, explanation, planning, and documentation-only work may use a
+proportionate direct workflow, but must not be used to bypass lifecycle gates
+for code, test, configuration, or other behavior-changing edits. If a surface
+cannot provide the required lifecycle capability, stop before write work and
+report the limitation rather than silently substituting another workflow.
+
 ## Invariants
 
 - Sol owns intent, planning, architecture, security, integration, synthesis, verification, and final acceptance.

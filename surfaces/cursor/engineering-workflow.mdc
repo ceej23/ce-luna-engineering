@@ -4,3 +4,9 @@ alwaysApply: false
 ---
 
 Follow the canonical policy at `policy/engineering-lifecycle.md`. Sol owns intent, planning, architecture, security, integration, synthesis, verification, acceptance, and authorization for external writes. Implement only bounded packets with exact scope and observable criteria. Review must be independent, stable-diff, and read-only; reviewers report evidence and do not edit or accept. Cursor rules preserve these behavioral invariants but do not claim Codex named-agent routing, model selection, sandbox, or approval guarantees.
+
+All software-repository changes use this lifecycle. Read-only inspection,
+explanation, planning, and documentation-only work may use a proportionate
+direct workflow, but this exception does not cover code, test, configuration,
+or other behavior-changing edits. Stop before write work if the surface cannot
+provide the required lifecycle capability.
