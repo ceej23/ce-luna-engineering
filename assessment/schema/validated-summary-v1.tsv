@@ -1,0 +1,13 @@
+# field	required	validation	description
+schema_version	yes	validated-summary/v1	Version of this summary contract.
+summary_id	yes	sha256 digest	Deterministic digest of the bounded summary facts.
+run_id	yes	lowercase-hyphenated identifier	Source run correlation identifier.
+policy_ref	yes	sha256 digest	Canonical policy digest validated for the run.
+adapter_ref	yes	sha256 digest or unknown	Surface adapter digest validated for the run.
+surface	yes	codex|claude-code|cursor|ci	Runtime surface producing evidence.
+control_results	yes	bounded control=result pairs	Validated lifecycle control results.
+route_facts	yes	bounded route triples	Requested, configured, and observed route facts.
+result	yes	pass|fail|unverified|exception	Terminal validator outcome.
+reason_codes	yes	bounded reason codes	Deterministic explanation codes.
+severity	yes	info|warning|severe	Deterministic evidence severity.
+validated_at	yes	UTC RFC3339 timestamp	Validation completion time.

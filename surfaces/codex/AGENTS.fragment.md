@@ -14,4 +14,6 @@ workflow.
 
 Use the canonical policy at `policy/engineering-lifecycle.md`. Sol owns framing, planning, architecture, security, integration, synthesis, verification, and acceptance. Dispatch only the named `luna_maker` for bounded implementation and `luna_reviewer` for independent read-only review. Preserve explicit scope, stop conditions, evidence, and authorization gates.
 
+For substantive instrumented work, produce only the allowlisted lifecycle evidence required by `policy/engineering-assessment.md`, validate it before assessment, and preserve `UNVERIFIED` when the runtime cannot prove a required control. Assessment remains report-only and never replaces Sol acceptance or external-write authorization.
+
 This fragment is an adapter, not a complete personal `AGENTS.md`; keep local domain rules and personal settings outside this repository.

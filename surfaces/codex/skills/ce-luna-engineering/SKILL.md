@@ -135,6 +135,23 @@ a stable baseline and rerun affected independent review lanes.
 Sol independently runs final verification and decides acceptance. Luna output is
 evidence, never the completion authority.
 
+For each substantive instrumented run, record the minimum allowlisted lifecycle
+evidence defined by the canonical assessment policy. Capture requested,
+configured, and observed routing separately; never attach prompts, transcripts,
+diffs, source, absolute paths, environment values, or command output. Seal the
+record after synthesis and run the deterministic validator before using it for
+periodic assessment. A validator outcome is evidence for Sol and does not
+replace acceptance or delivery authorization.
+
+After Sol accepts substantive instrumented work, run the installed
+`ce-assess-engineering` runtime for validation, ingestion, and its optional
+report-only weekly `if-due` check. Use the selected absolute `CODEX_ROOT` and
+explicit agent/repository identifiers; do not ask makers to access assessment
+state. Missing, unready, drifted, or failed cadence is assessment
+`UNVERIFIED`/setup drift only and cannot delay or reverse Sol's acceptance.
+The cadence check is idempotent, local, and report-only; it never changes
+policy, proposals, approvals, or delivery state.
+
 ## Orchestration terminal gate
 
 A required maker or reviewer that is still running is unfinished work. Never
@@ -195,6 +212,9 @@ Before claiming completion, report:
 - CE simplify, code-review, and compound status or justified skips;
 - Git, PR, push, and CI status without implying actions that did not occur;
 - residual risks and rollback information.
+- assessment bundle path and deterministic conformance result, when the run is
+  instrumented; report `UNVERIFIED` instead of inferring unavailable runtime
+  evidence.
 
 Start a new Codex session after agent, plugin, or skill installation changes so
 the available roles and skills refresh.

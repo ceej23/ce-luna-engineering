@@ -1,0 +1,6 @@
+# Runtime evidence and reports are local generated artifacts.
+/bundles/
+/reports/
+
+# Interrupted fixture runs may leave repository-local scratch directories.
+/.assessment-test.*

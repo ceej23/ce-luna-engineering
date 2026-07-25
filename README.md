@@ -74,6 +74,13 @@ skill alone does not make it the default lifecycle.
   limitation and leave conflicting parent or global policy explicitly
   unresolved.
 
+The manifest also installs a self-contained, report-only assessment runtime
+under `skills/ce-assess-engineering/runtime`. It partitions disposable UTC
+weekly records by explicit agent and repository identity. Run its setup,
+readiness, validation/ingest, and idempotent `if-due` commands only after Sol
+accepts substantive instrumented work; missing or drifted assessment state is
+`UNVERIFIED` setup drift and cannot change acceptance or delivery.
+
 ## The lifecycle
 
 ```text
@@ -112,6 +119,19 @@ Frame → Plan → Make → Integrate → Review → Synthesize → Compound
 The reviewer should not be the author of the change under review. A reviewer
 returns **no findings** explicitly when the evidence supports that conclusion.
 
+## Workflow assessment
+
+[`policy/engineering-assessment.md`](policy/engineering-assessment.md) defines
+the portable assessment contract. Substantive instrumented runs may emit a
+sealed, redacted bundle of lifecycle facts and receive a deterministic
+conformance result. `PASS`, `FAIL`, `UNVERIFIED`, and `EXCEPTION` are evidence
+states only: Sol still owns acceptance and external-write authorization.
+
+The capability matrix names the controls each surface can enforce, observe,
+attest, or cannot support. Never infer a host guarantee from adapter text. The
+assessment skill consumes only validated summaries and is report-only; policy
+or adapter changes remain separately authorized engineering work.
+
 ## Risk gates and verification
 
 The lead owns the gates; a maker or reviewer supplies evidence for them.
@@ -128,6 +148,10 @@ The lead owns the gates; a maker or reviewer supplies evidence for them.
 - **Delivery gate:** commits, pushes, releases, deployments, and production
   actions require explicit authorization and are not implied by implementation
   or review.
+
+Assessment exceptions retain their underlying failed or unverified control,
+are scoped to one run and policy version, and expire. They never turn a result
+into an acceptance decision.
 
 ## Getting started
 

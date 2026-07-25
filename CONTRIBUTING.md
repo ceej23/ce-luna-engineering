@@ -33,11 +33,22 @@ the operating guide and README. Keep the Codex manifest explicit and fragments
 safe: never add credentials, MCP/connectors, machine paths, trust settings,
 caches, histories, databases, or complete personal configuration.
 
+Changes to assessment policy also update the evidence schema, capability
+matrix, fixtures, adapter checker, and CI guidance. Assessment bundles and
+reports are generated artifacts: keep them out of Git and never add prompts,
+transcripts, diffs, source, absolute paths, environment values, or personal
+runtime data.
+
 Before proposing a change, run `bash -n scripts/check-codex-drift.sh`,
 `bash -n scripts/install-codex.sh`, and temporary-root drift/install smoke tests.
 The checker is read-only; installation requires `--apply` and should be tested
 with `CODEX_ROOT` rather than an active home configuration. Drift or scope
 changes should be explained in the contribution.
+
+Run `bash scripts/test-assessment.sh` and
+`bash scripts/check-assessment-adapters.sh` for assessment changes. CI validates
+tracked fixtures and adapters only; it must not inspect active home configuration
+or upload runtime evidence.
 
 This repository is distributed under the MIT License; see [LICENSE](LICENSE)
 for the applicable terms.

@@ -4,6 +4,14 @@ repo_root=$(CDPATH= cd -- "$(dirname -- "$0")/.." && pwd)
 codex_root=${CODEX_ROOT:-"${HOME:?HOME is required}/.codex"}
 manifest="$repo_root/manifest/codex-files.tsv"
 die() { echo "error: $*" >&2; exit 2; }
+file_mode() {
+  if stat -f '%Lp' "$1" >/dev/null 2>&1; then stat -f '%Lp' "$1"
+  else stat -c '%a' "$1"
+  fi
+}
+files_match() {
+  cmp -s "$1" "$2" && [[ "$(file_mode "$1")" == "$(file_mode "$2")" ]]
+}
 is_normalized_relative() {
   [[ -n "$1" && "$1" != /* && "$1" != */ && "$1" != *//* && "/$1/" != *"/./"* && "/$1/" != *"/../"* ]]
 }
@@ -45,7 +53,7 @@ for index in "${!sources[@]}"; do
   target=${targets[$index]}
   expected="$repo_root/$source"; actual="$codex_root/$target"
   if [[ ! -f "$actual" ]]; then echo "missing: $target" >&2; status=1
-  elif ! cmp -s "$expected" "$actual"; then echo "changed: $target" >&2; status=1
+  elif ! files_match "$expected" "$actual"; then echo "changed: $target" >&2; status=1
   fi
 done
 if (( status == 0 )); then echo "Codex files match manifest ($codex_root)"; fi
