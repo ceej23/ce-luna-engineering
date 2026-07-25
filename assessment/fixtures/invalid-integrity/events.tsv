@@ -1,0 +1,7 @@
+schema_version	run_id	event_sequence	event_type	policy_ref	adapter_ref	surface	control_id	capability	route_requested	route_configured	route_observed	artifact_ref	result	exception_ref
+assessment-run-events/v1	bad-integrity	1	frame	0000000000000000000000000000000000000000000000000000000000000000	unknown	codex	scope	observed	luna-maker	luna-maker	luna-maker	artifact-1	pass	
+assessment-run-events/v1	bad-integrity	2	make	e2d9b640b83e2ed2fd270a4c28d6841bca0bd18a3b87cfe7ff2c31b939a37109	unknown	codex	control	attested	luna-maker	luna-maker	luna-maker	artifact-2	pass	
+assessment-run-events/v1	bad-integrity	3	integrate	e2d9b640b83e2ed2fd270a4c28d6841bca0bd18a3b87cfe7ff2c31b939a37109	unknown	codex	evidence	observed	luna-maker	luna-maker	luna-maker	artifact-3	pass	
+assessment-run-events/v1	bad-integrity	4	review	e2d9b640b83e2ed2fd270a4c28d6841bca0bd18a3b87cfe7ff2c31b939a37109	unknown	codex	independence	enforced	luna-reviewer	luna-reviewer	luna-reviewer	artifact-4	pass	
+assessment-run-events/v1	bad-integrity	5	synthesize	e2d9b640b83e2ed2fd270a4c28d6841bca0bd18a3b87cfe7ff2c31b939a37109	unknown	codex	delivery	attested	luna-maker	luna-maker	luna-maker	artifact-5	pass	
+assessment-run-events/v1	bad-integrity	6	seal	e2d9b640b83e2ed2fd270a4c28d6841bca0bd18a3b87cfe7ff2c31b939a37109	unknown	codex	evidence	observed	luna-maker	luna-maker	luna-maker	artifact-6	pass	

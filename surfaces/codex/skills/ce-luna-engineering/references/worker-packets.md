@@ -24,6 +24,11 @@ Include:
 10. Return contract: files changed, verification commands/results, blockers and
    residual risks.
 
+For substantive instrumented work, the Sol-owned closeout records only the
+allowlisted lifecycle facts from the canonical assessment policy. Makers must
+not collect prompts, transcripts, source, diffs, absolute paths, environment
+values, or command output for assessment.
+
 Before dispatch, capture `git status --short` and the relevant diff without
 altering unrelated user work.
 
@@ -60,3 +65,9 @@ worktree invalidates the lane even when the reviewer claims it was report-only.
 - Re-review after a material diff change.
 - Run parent-owned verification after the final change.
 - Preserve CE review artifacts and durable residual records.
+- Seal and validate the minimal assessment bundle after synthesis when the run
+  is instrumented. Treat the result as evidence, not acceptance.
+- Only after Sol accepts, use the installed assessment runtime for validation,
+  ingestion, and the idempotent report-only weekly due check. Makers never
+  access assessment state. Missing, drifted, or failed cadence is
+  `UNVERIFIED` setup drift and cannot delay or reverse acceptance.

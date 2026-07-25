@@ -4,6 +4,14 @@ repo_root=$(CDPATH= cd -- "$(dirname -- "$0")/.." && pwd)
 codex_root=${CODEX_ROOT:-"${HOME:?HOME is required}/.codex"}
 manifest="$repo_root/manifest/codex-files.tsv"
 die() { echo "error: $*" >&2; exit 2; }
+file_mode() {
+  if stat -f '%Lp' "$1" >/dev/null 2>&1; then stat -f '%Lp' "$1"
+  else stat -c '%a' "$1"
+  fi
+}
+files_match() {
+  cmp -s "$1" "$2" && [[ "$(file_mode "$1")" == "$(file_mode "$2")" ]]
+}
 is_normalized_relative() {
   [[ -n "$1" && "$1" != /* && "$1" != */ && "$1" != *//* && "/$1/" != *"/./"* && "/$1/" != *"/../"* ]]
 }
@@ -50,7 +58,7 @@ for index in "${!sources[@]}"; do
   expected="$repo_root/$source"; actual="$codex_root/$target"
   assert_no_symlink_components "$actual"
   mkdir -p -- "${actual%/*}"
-  if [[ -f "$actual" ]] && ! cmp -s "$expected" "$actual"; then
+  if [[ -f "$actual" ]] && ! files_match "$expected" "$actual"; then
     backup_base="$actual.backup.$(date -u +%Y%m%dT%H%M%SZ).$$"
     backup=$backup_base
     suffix=0
@@ -61,7 +69,7 @@ for index in "${!sources[@]}"; do
     cp -p -- "$actual" "$backup"
     echo "backup: $backup"
   fi
-  if [[ ! -f "$actual" ]] || ! cmp -s "$expected" "$actual"; then
+  if [[ ! -f "$actual" ]] || ! files_match "$expected" "$actual"; then
     cp -p -- "$expected" "$actual"
     echo "installed: $target"
   else

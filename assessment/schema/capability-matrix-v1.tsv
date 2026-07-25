@@ -1,0 +1,21 @@
+# surface	control_id	capability	evidence_source
+codex	scope	observed	bounded worker packet and worktree status
+codex	control	attested	Sol synthesis record
+codex	independence	enforced	named reviewer route and stable-review checks
+codex	evidence	observed	validator record
+codex	delivery	attested	explicit Sol authorization record
+claude-code	scope	attested	bounded implementation packet
+claude-code	control	attested	lead synthesis record
+claude-code	independence	unsupported	host does not guarantee named routing or sandboxing
+claude-code	evidence	attested	attached validated bundle
+claude-code	delivery	attested	explicit lead authorization record
+cursor	scope	attested	bounded implementation packet
+cursor	control	attested	lead synthesis record
+cursor	independence	unsupported	host does not guarantee named routing or sandboxing
+cursor	evidence	attested	attached validated bundle
+cursor	delivery	attested	explicit lead authorization record
+ci	scope	observed	tracked artifact paths and changed-file list
+ci	control	unsupported	CI cannot establish lead judgement
+ci	independence	unsupported	CI cannot establish reviewer identity or write isolation
+ci	evidence	enforced	fixture and adapter-conformance checks
+ci	delivery	unsupported	CI must not infer delivery authorization

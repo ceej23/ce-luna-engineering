@@ -1,0 +1,33 @@
+name: Assessment conformance
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate shell syntax
+        run: |
+          bash -n scripts/check-codex-drift.sh
+          bash -n scripts/install-codex.sh
+          bash -n scripts/check-assessment-adapters.sh
+          bash -n scripts/validate-assessment.sh
+          bash -n scripts/test-assessment.sh
+          bash -n scripts/test-assessment-install.sh
+          bash -n scripts/test-assessment-window.sh
+      - name: Compile assessment runtime
+        run: |
+          pycache=$(mktemp -d)
+          PYTHONPYCACHEPREFIX="$pycache" python3 -m py_compile scripts/assessment_safe_open.py scripts/assessment_window.py
+          rm -rf "$pycache"
+      - name: Validate assessment fixtures
+        run: bash scripts/test-assessment.sh
+      - name: Validate assessment adapters
+        run: bash scripts/check-assessment-adapters.sh
+      - name: Validate isolated installation
+        run: bash scripts/test-assessment-install.sh
+      - name: Validate assessment windows
+        run: bash scripts/test-assessment-window.sh

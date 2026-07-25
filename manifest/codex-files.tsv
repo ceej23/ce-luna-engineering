@@ -4,3 +4,19 @@ surfaces/codex/agents/luna-reviewer.toml	agents/luna-reviewer.toml
 surfaces/codex/skills/ce-luna-engineering/SKILL.md	skills/ce-luna-engineering/SKILL.md
 surfaces/codex/skills/ce-luna-engineering/agents/openai.yaml	skills/ce-luna-engineering/agents/openai.yaml
 surfaces/codex/skills/ce-luna-engineering/references/worker-packets.md	skills/ce-luna-engineering/references/worker-packets.md
+surfaces/codex/skills/ce-assess-engineering/SKILL.md	skills/ce-assess-engineering/SKILL.md
+surfaces/codex/skills/ce-assess-engineering/agents/openai.yaml	skills/ce-assess-engineering/agents/openai.yaml
+# Self-contained assessment runtime (all paths resolve beneath the installed skill)
+scripts/validate-assessment.sh	skills/ce-assess-engineering/runtime/scripts/validate-assessment.sh
+scripts/assessment_safe_open.py	skills/ce-assess-engineering/runtime/scripts/assessment_safe_open.py
+scripts/assessment_window.py	skills/ce-assess-engineering/runtime/scripts/assessment_window.py
+assessment/schema/run-events-v1.tsv	skills/ce-assess-engineering/runtime/assessment/schema/run-events-v1.tsv
+assessment/schema/capability-matrix-v1.tsv	skills/ce-assess-engineering/runtime/assessment/schema/capability-matrix-v1.tsv
+assessment/schema/validated-summary-v1.tsv	skills/ce-assess-engineering/runtime/assessment/schema/validated-summary-v1.tsv
+policy/engineering-assessment.md	skills/ce-assess-engineering/runtime/policy/engineering-assessment.md
+policy/engineering-lifecycle.md	skills/ce-assess-engineering/runtime/policy/engineering-lifecycle.md
+surfaces/codex/AGENTS.fragment.md	skills/ce-assess-engineering/runtime/surfaces/codex/AGENTS.fragment.md
+surfaces/claude-code/CLAUDE.fragment.md	skills/ce-assess-engineering/runtime/surfaces/claude-code/CLAUDE.fragment.md
+surfaces/cursor/engineering-workflow.mdc	skills/ce-assess-engineering/runtime/surfaces/cursor/engineering-workflow.mdc
+.github/workflows/assessment-conformance.yml	skills/ce-assess-engineering/runtime/.github/workflows/assessment-conformance.yml
+assessment/fixtures/valid-codex-run/events.tsv	skills/ce-assess-engineering/runtime/test-fixtures/valid-codex-run/events.tsv

@@ -1,0 +1,16 @@
+# field	required	validation	description
+schema_version	yes	assessment-run-events/v1	Version of this record contract.
+run_id	yes	lowercase-hyphenated identifier	Correlation identifier shared by every event in one run.
+event_sequence	yes	positive integer	Strictly increasing event sequence within the run.
+event_type	yes	frame|make|integrate|review|synthesize|seal	Lifecycle checkpoint represented by this row.
+policy_ref	yes	sha256 digest	Digest of the canonical assessment policy used by the run.
+adapter_ref	yes	sha256 digest or unknown	Digest of the active surface adapter when observable.
+surface	yes	codex|claude-code|cursor|ci	Runtime surface producing evidence.
+control_id	yes	scope|control|independence|evidence|delivery	Lifecycle control evaluated by the event.
+capability	yes	enforced|observed|attested|unsupported	Declared host capability for this control.
+route_requested	no	bounded identifier or unknown	Requested maker or reviewer route.
+route_configured	no	bounded identifier or unknown	Configured maker or reviewer route.
+route_observed	no	bounded identifier or unknown	Observed host completion route.
+artifact_ref	no	bounded identifier or sha256 digest	Opaque reference to a permitted artifact; its contents are never loaded by this validator.
+result	no	pass|fail|unverified	Control result observed at this checkpoint.
+exception_ref	no	lowercase-hyphenated identifier	Approved exception associated with a fail or unverified result.

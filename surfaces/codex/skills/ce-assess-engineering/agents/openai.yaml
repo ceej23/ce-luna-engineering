@@ -1,0 +1,4 @@
+interface:
+  display_name: "CE Engineering Assessment"
+  short_description: "Report-only assessment of sealed workflow evidence"
+  default_prompt: "Use $ce-assess-engineering to assess this sealed CE + Sol/Luna workflow evidence without modifying policy or delivery state."
