@@ -22,3 +22,5 @@ report the limitation rather than silently substituting another workflow.
 Git-tracked policy and adapter fragments are canonical. Installed files under a user's home directory are deployments and may be checked for drift. Machine local settings, credentials, caches, histories, databases, trust settings, connectors, and personal preferences are explicitly not canonical and must never be copied by this project.
 
 Surface adapters may express native syntax and capabilities, but may not claim unsupported routing, sandbox, or approval guarantees. Change lifecycle meaning here first, then update every affected adapter and its verification guidance.
+
+Assessment semantics, evidence privacy, capability declarations, and conformance outcomes are owned by [`engineering-assessment.md`](engineering-assessment.md). Assessment results are evidence for Sol; they do not grant acceptance, authorization, release, deployment, or policy-change authority.

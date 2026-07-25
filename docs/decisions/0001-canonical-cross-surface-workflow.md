@@ -9,6 +9,10 @@ Git is the source of truth for the shared lifecycle and safe surface fragments. 
 
 Codex synchronization uses an explicit manifest and opt-in installer. Only listed targets may be compared or installed, and differing files receive a recoverable timestamped backup before replacement.
 
+Assessment policy, evidence schemas, and capability matrices are Git-canonical
+as well. Runtime bundles and reports remain local generated artifacts; adapters
+must declare unsupported controls instead of claiming cross-surface parity.
+
 ## Consequences
 
 This makes runtime drift visible and reviewable without tracking credentials, machine paths, trust settings, MCP details, caches, histories, databases, or unrelated preferences. Claude Code and Cursor preserve behavioral boundaries but do not promise Codex-only named-agent routing or sandbox enforcement.
