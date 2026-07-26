@@ -86,12 +86,63 @@ readiness, validation/ingest, and idempotent `if-due` commands only after Sol
 accepts substantive instrumented work; missing or drifted assessment state is
 `UNVERIFIED` setup drift and cannot change acceptance or delivery.
 
+### Validate repository changes
+
+Run the validator from the repository root:
+
+```text
+python scripts/validate_skill.py
+```
+
+## Classify before the lifecycle
+
+Sol classifies the work before choosing the active lifecycle phases. Use the
+smallest lane that contains the risk:
+
+| Lane | Qualifies when | Default execution | Default budget |
+| --- | --- | --- | --- |
+| **Tier 0: Observe** | No target mutation: diagnosis, status, evidence inspection, or reporting | Sol only; focused evidence; no maker or reviewer | 15 minutes; 1 total agent |
+| **Tier 1: Small** | Localized, reversible, known solution; no cross-cutting or control-bearing decision | Sol or one bounded maker; focused verification; review only on a named trigger | 30 minutes; 2 total agents |
+| **Tier 2: Standard** | Ordinary mutation that does not qualify as Small or High-risk | One bounded maker, one independent reviewer, one remediation/re-review maximum, one broad Sol check | 60 minutes; 3 total agents |
+| **Tier 3: High-risk** | Architecture, public API or schema, migration, dependency, security, credentials, privacy-sensitive data, production, external writes, or irreversible effects | Full Sol/maker/reviewer boundaries; focused specialists only for a named risk | Explicit task budget; 3 total agents before justified escalation |
+
+Tier selection is conservative: a Tier 3 trigger always wins. A Tier 1 review
+trigger includes a user request, unexpected ambiguity or scope, a
+security/privacy-sensitive path, public interface/schema/dependency
+implications, inadequate test evidence, or a risk Sol explicitly promotes.
+Promote the work before continuing when the trigger cannot fit safely inside
+the selected lane.
+
+For Showcase visual work, use a separate direction-selection lane only when no
+Tier 3 trigger applies: create at most three small and genuinely different
+directions, obtain a human selection, record a visual-fidelity contract, then
+harden the selected direction. Renderer-only variants are not different
+directions. The default target is 45 minutes and two total agents; three
+directions do not require three agents.
+
+This classification deliberately revises the earlier universal contract:
+Tier 0 and Tier 1 may be Sol-only. Whenever a Luna maker or reviewer is used,
+all role, scope, control, independence, evidence, and delivery boundaries below
+still apply.
+
+Before any mutating work, tool call, or delegation, publish one compact routing
+declaration:
+
+`Lane: [selected lane] | Budget: [time/cost limit] | Agents: [topology]`
+
+Do not begin mutating work until the declaration contains an explicit budget.
+
 ## The lifecycle
 
 ```text
 Frame → Plan → Make → Integrate → Review → Synthesize → Compound
  Sol    Sol+CE   Luna     Sol        Luna       Sol          CE
 ```
+
+This is the complete path for work whose selected lane requires every phase.
+Tier 0 and Tier 1 collapse phases that add no proportionate evidence. Tier 2
+uses the complete path with the limits above. Tier 3 may add a focused
+specialist only for a named risk and within its explicit budget.
 
 1. **Frame (Sol):** clarify intent, risks, constraints, architecture questions,
    and observable acceptance criteria.
@@ -145,11 +196,15 @@ The lead owns the gates; a maker or reviewer supplies evidence for them.
   Unexpected files or requirements stop the unit.
 - **Control gate:** architecture, security, policy, credentials, external
   writes, and other control-bearing decisions stay with the lead.
-- **Independence gate:** review starts only from a stable baseline and is
-  read-only; a changed worktree invalidates the review lane.
+- **Independence gate:** when the selected lane requires review, it starts only
+  from a stable baseline and is read-only; a changed target invalidates that
+  review lane.
 - **Evidence gate:** acceptance requires the requested checks to pass (or a
   clearly recorded, lead-owned exception). Prefer focused tests and linting,
   then run the broader verification appropriate to the change.
+- **Budget gate:** stop when the selected time, cost, retry, agent, or
+  verification budget is exhausted. Report progress, evidence, and remaining
+  risk instead of silently escalating.
 - **Delivery gate:** commits, pushes, releases, deployments, and production
   actions require explicit authorization and are not implied by implementation
   or review.
@@ -160,20 +215,44 @@ into an acceptance decision.
 
 ## Getting started
 
-1. Define the desired behavior and risks in plain language.
-2. Decide whether the work is ambiguous enough to need exploration, or whether
-   a short plan is sufficient.
-3. Split implementation into independent, bounded units. Give each unit a
-   worker packet (template below).
-4. Capture the worktree status before dispatching makers. Keep unrelated user
-   changes intact.
-5. Integrate all maker work and run a stable-baseline verification.
-6. Dispatch an independent, read-only reviewer with the diff and criteria.
-7. Resolve findings, rerun parent-owned checks, and record the acceptance
-   decision. Capture a short learning when it will help future work.
+1. Define the outcome, mutation, risks, and acceptance evidence in plain
+   language.
+2. Select the lane using the conservative precedence above and record its
+   budget.
+3. For delegated work, capture the worktree state and send one compact packet
+   per bounded unit. Keep unrelated user changes intact.
+4. Run focused checks during implementation. Run at most one broad,
+   parent-owned verification after integration by default.
+5. Review only when the selected lane requires it. Resolve blocking findings
+   within the lane's remediation budget.
+6. Accept and stop when the selected checks pass and no blocker remains.
+   Capture a short learning only when it will help future work.
 
-For a tiny change, the lead may use a compact packet instead of a large plan;
-the scope, independence, verification, and authorization gates still apply.
+## Operating limits and stopping rules
+
+- Use no history or minimal recent context for workers by default. Send the
+  compact packet, not the conversation or unrelated architecture rationale.
+  Full-history delegation requires written justification.
+- Keep one accepted outcome or immutable target per root. When material scope
+  expansion arrives after acceptance, stop. Do not implement it in the current
+  root. Return a compact handoff and require a fresh task for the new outcome.
+- For mediated continuation, send `immutable target + brief reference +
+  authority delta + remaining budget` instead of restating the operating
+  contract.
+- Treat specialist practices as optional lenses or checklists inside the
+  selected lane, never as nested mandatory lifecycles. Do not create review
+  panels by default.
+- P0 and P1 findings block automatically. P2 and P3 findings go to the backlog
+  unless Sol explicitly promotes them.
+- Allow one reviewer attempt and one retry only for a confirmed transient
+  infrastructure failure. Then record the exception, perform a Sol review, and
+  stop the review lane.
+- After checks pass and no blocker remains, stop. Suggestions do not reopen the
+  lifecycle.
+- Use deterministic telemetry off the critical path. Keep the default
+  post-execution assessment under one minute and use no subagent. Deepen it
+  only after a budget breach, repeated failure, discarded work, user rejection,
+  or a quality or safety regression.
 
 ## Reusable Luna maker packet
 
@@ -225,7 +304,8 @@ acceptance criteria, and the review axes that matter for the change. Require
 findings to include severity, file and line or symbol, direct evidence, the
 violated criterion, impact, and bounded remediation direction. Explicitly
 exclude edits, commits, pushes, acceptance, architecture or security-policy
-decisions, and subagent spawning.
+decisions, and subagent spawning. P0 and P1 findings block automatically; P2
+and P3 findings are advisory unless Sol promotes them.
 
 ## Adapting the model
 
@@ -234,7 +314,7 @@ runtime. Teams can change tools, names, or automation while retaining:
 
 - one accountable lead for judgment and acceptance;
 - bounded implementation ownership;
-- an independent read-only review;
+- an independent read-only review when the selected lane requires it;
 - explicit risk and authorization gates; and
 - verification evidence attached to the decision.
 
@@ -249,7 +329,7 @@ The capability mapping is intentionally at the practice level:
 | Retiring lifecycle/default skill role | CE + Sol/Luna capability |
 | --- | --- |
 | Planning and task shaping | **Frame → Plan (Sol):** clarify intent, risks, constraints, and acceptance criteria before dispatching work. |
-| Implementation and execution | **Make (Luna) → Integrate (Sol):** bounded implementation units, explicit ownership, and a stable baseline. |
+| Implementation and execution | **Make (Luna) → Integrate (Sol):** bounded delegated units for Tier 2 and Tier 3; Sol may execute Tier 1 directly. |
 | Debugging and diagnosis | **Frame/Plan → Make → Verify:** reproduce the behavior, make the smallest scoped change, and attach evidence to the decision. |
 | Review and QA | **Review (independent Luna) → Synthesize (Sol):** read-only findings followed by lead-owned remediation and acceptance. |
 | Handoff and delivery | **Compound + delivery gate (Sol):** capture learning and perform separately authorized commits, releases, or deployments. |
@@ -284,11 +364,15 @@ tool-agnostic):
 ## Engineering lifecycle
 
 Use Compound Engineering with Sol/Luna as the single default lifecycle:
-Sol owns framing, planning, architecture, security, integration, synthesis,
-verification, and acceptance; Luna makers implement bounded units; an
-independent Luna reviewer performs read-only review. Specialist practices such
-as TDD, domain modeling, or codebase design are optional lenses within that
-lifecycle, not competing default workflows.
+Sol classifies work before execution. Observe and Small work may be Sol-only;
+Standard work uses one bounded Luna maker and one independent read-only Luna
+reviewer; High-risk work uses the full boundaries plus only focused,
+risk-justified specialists. Sol owns framing, planning, architecture, security,
+integration, synthesis, verification, and acceptance. Specialist practices
+such as TDD, domain modeling, or codebase design are optional lenses inside the
+selected lane, not competing default workflows. Stop when the lane's checks
+pass or its budget is exhausted; delivery actions always require separate
+explicit authorization.
 ```
 
 Before editing policy, inventory every applicable AGENTS.md in the active

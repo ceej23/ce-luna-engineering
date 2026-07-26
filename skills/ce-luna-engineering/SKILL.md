@@ -1,49 +1,85 @@
 ---
 name: ce-luna-engineering
-description: Run the Compound Engineering lifecycle with accountable Sol/Luna role boundaries. Use when the user explicitly requests CE, Compound Engineering, Sol, or Luna; when adopting CE + Sol/Luna as an engineering lifecycle; or when running a non-trivial engineering change through bounded makers and independent review.
+description: Run a proportional Compound Engineering lifecycle with accountable Sol/Luna boundaries. Use when adopting CE + Sol/Luna, or when non-trivial engineering work benefits from bounded makers and independent review.
 ---
 
 # CE + Sol/Luna Engineering
 
-Use this lifecycle as one operating contract:
+Classify work before selecting lifecycle phases. Use the smallest lane that
+contains the risk; do not make every quality practice mandatory.
+
+## Select the lane
+
+| Lane | Qualifies when | Default execution | Budget |
+| --- | --- | --- | --- |
+| **Tier 0: Observe** | No target mutation | Sol only; focused evidence; no maker or reviewer | 15 minutes; 1 total agent |
+| **Tier 1: Small** | Localized, reversible, known solution; no cross-cutting or control-bearing decision | Sol or one bounded maker; focused verification; triggered review only | 30 minutes; 2 total agents |
+| **Tier 2: Standard** | Ordinary mutation that is neither Small nor High-risk | One maker, one reviewer, one remediation/re-review maximum, one broad Sol check | 60 minutes; 3 total agents |
+| **Tier 3: High-risk** | Architecture, public API/schema, migration, dependency, security, credentials, privacy-sensitive data, production, external writes, or irreversible effects | Full boundaries; focused specialists only for a named risk | Explicit task budget; 3 total agents before justified escalation |
+
+Tier 3 always wins. A Tier 1 review trigger includes a user request, unexpected
+scope or ambiguity, a security/privacy-sensitive path, public
+interface/schema/dependency implications, inadequate test evidence, or a risk
+Sol promotes. Promote the lane before continuing when needed.
+
+For Showcase visual direction work without a Tier 3 trigger, create at most
+three small and genuinely different directions, obtain a human selection,
+record a visual-fidelity contract, then harden. Renderer-only variants do not
+count. Default to 45 minutes and two total agents.
+
+Tier 0 and Tier 1 may be Sol-only. This deliberately replaces the earlier
+universal maker/reviewer requirement. Whenever Luna is used, every role,
+scope, control, independence, evidence, and delivery boundary below applies.
+
+Before any mutating work, tool call, or delegation, publish:
+
+`Lane: [selected lane] | Budget: [time/cost limit] | Agents: [topology]`
+
+Do not begin mutating work without an explicit budget in that declaration.
+
+## Run the selected lifecycle
+
+The complete path is:
 
 `Frame → Plan → Make → Integrate → Review → Synthesize → Compound`
 
-Keep Sol accountable for intent, framing, plan decisions, architecture,
-security, integration, synthesis, final verification, and acceptance. Use a
-Luna maker only for one bounded implementation unit. Use a different Luna as
-an independent, read-only reviewer. Apply specialist practices such as TDD,
-diagnosis, domain modeling, codebase design, or UX review inside this
-lifecycle; do not turn them into competing default workflows.
+- **Sol** owns intent, classification, framing, plan decisions, architecture,
+  security, integration, synthesis, final verification, and acceptance.
+- **Luna maker** implements one bounded unit only.
+- **Luna reviewer** independently reviews a stable target in read-only mode.
+- **CE** supplies planning and quality practices; specialist skills are lenses
+  or checklists inside the selected lane, never nested mandatory lifecycles.
 
-## Run the lifecycle
+Tier 0 and Tier 1 collapse phases that add no proportionate evidence. Tier 2
+uses the complete path with the limits above. Tier 3 may add a focused
+specialist only for a named risk and within its explicit budget.
 
-1. **Frame as Sol.** Clarify requested behavior, constraints, risks,
-   architecture questions, and observable acceptance criteria. Resolve
-   ambiguous or control-bearing decisions before delegating.
-2. **Plan as Sol, using CE.** Choose the smallest coherent plan. Keep the plan
-   explicit for non-trivial work and explore material ambiguity before
-   implementation.
-3. **Make with bounded Luna makers.** Record the worktree state and preserve
-   unrelated user changes before dispatch. Give each maker an explicit packet.
-   Require the maker to stop on ambiguity, unexpected files or requirements,
-   missing tools, failing assumptions, or scope expansion.
-4. **Integrate as Sol.** Inspect maker output and scope, reconcile the units,
-   and run parent-owned checks to establish a stable baseline.
-5. **Review with an independent Luna.** Give a reviewer who did not make the
-   change a stable diff and a read-only review packet. Invalidate the review
-   and repeat it if the worktree changes.
-6. **Synthesize as Sol.** Confirm findings, decide remediation, rerun final
-   verification, and make the acceptance decision.
-7. **Compound with CE.** Simplify where useful, apply the relevant quality
-   tail, and capture durable learning when it will help future work.
+## Keep execution bounded
 
-Use a compact plan and packet for tiny changes, but preserve scope,
-independence, evidence, and authorization gates.
+- Send workers no history or minimal recent context plus one compact packet.
+  Full-history delegation requires written justification.
+- Keep one accepted outcome or immutable target per root. When material scope
+  expansion arrives after acceptance, stop. Do not implement it in the current
+  root. Return a compact handoff and require a fresh task for the new outcome.
+- For mediated continuation, send `immutable target + brief reference +
+  authority delta + remaining budget`.
+- Do not create panels by default.
+- P0 and P1 findings block. P2 and P3 are backlog unless Sol promotes them.
+- Allow one reviewer attempt and one retry only for confirmed transient
+  infrastructure failure. Then record the exception, perform Sol review, and
+  stop the review lane.
+- Run focused implementation checks and at most one broad Sol-owned check
+  after integration by default.
+- Stop when checks pass and no blocker remains. Suggestions do not reopen the
+  lifecycle.
+- On budget breach, stop and report progress, evidence, and remaining risk.
+  Do not silently escalate.
+- Keep deterministic telemetry off the critical path. Default post-execution
+  assessment stays under one minute and uses no subagent.
 
 ## Dispatch a maker
 
-Include all of the following in every maker packet:
+Every maker packet includes:
 
 - working directory;
 - objective and plan unit;
@@ -53,40 +89,33 @@ Include all of the following in every maker packet:
 - exact verification commands;
 - prohibited operations;
 - stop conditions; and
-- return contract covering files changed, verification results, blockers, and
-  residual risks.
+- return contract covering files changed, verification, blockers, and risks.
 
-Do not let a maker own architecture, public API or schema decisions,
-dependencies, security, credentials, Git, release, deployment, production, or
-product decisions. Do not let a maker spawn subagents or silently broaden
-scope.
+Do not give a maker architecture, public API or schema, dependency, security,
+credential, Git, release, deployment, production, policy, product, or
+acceptance ownership. A maker does not spawn subagents or broaden scope.
 
 ## Dispatch a reviewer
 
-Provide the stable base and target diff, plan or unit identifiers, acceptance
-criteria, and relevant review axes. Require each finding to contain severity,
-location, direct evidence, the violated criterion, impact, and bounded
-remediation direction. Require the reviewer to return `no findings` explicitly
-when the evidence supports it.
+Provide the stable base and target, plan/unit, acceptance criteria, and
+relevant axes. Findings include severity, location, direct evidence, violated
+criterion, impact, and bounded remediation direction. Require `no findings`
+when appropriate.
 
-Keep review read-only. Do not let the reviewer edit, accept the work, own
-architecture or policy decisions, or spawn subagents.
+Review is read-only. A reviewer does not edit, accept, own architecture or
+policy, or spawn subagents.
 
 ## Enforce gates
 
-- Accept work only with requested verification evidence or a clearly recorded,
-  Sol-owned exception.
-- Keep architecture, security, policy, credentials, and external writes under
-  Sol's control.
-- Require explicit user authorization for commits, pushes, pull requests,
-  releases, deployments, production actions, and other external writes.
-- Treat implementation and review authorization as distinct from delivery
-  authorization.
+- Accept only with requested evidence or a recorded Sol-owned exception.
+- Keep architecture, security, policy, credentials, and external writes with
+  Sol.
+- Commits, pushes, pull requests, releases, deployments, production actions,
+  and other external writes require separate explicit user authorization.
+- Implementation and review authorization do not authorize delivery.
 
 ## Read the full operating model
 
 Read [references/operating-model.md](references/operating-model.md) before
-adapting this lifecycle to an `AGENTS.md`, migrating from another lifecycle,
-resolving role or gate ambiguity, or designing maker/reviewer packets beyond
-the concise requirements above. Preserve its boundaries and evidence
-requirements when adapting names, tools, or automation.
+adapting this lifecycle to `AGENTS.md`, migrating another lifecycle, resolving
+role or gate ambiguity, or designing non-trivial worker packets.
