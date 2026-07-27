@@ -1,11 +1,27 @@
 ## CE + Sol/Luna lifecycle
 
-Follow the locally adopted canonical engineering lifecycle policy. Sol retains intent, planning, architecture, security, integration, synthesis, verification, acceptance, and authorization for external writes. Implementers work only in bounded packets with exact scope and evidence. An independent reviewer reads a stable change read-only, reports severity and remediation, and does not author or accept it.
+Follow the locally adopted canonical engineering lifecycle policy. Classify the
+work before execution and use the smallest safe lane. Observe and Small may be
+Sol-only; Standard uses a bounded implementer and independent reviewer;
+High-risk uses full role boundaries and only risk-justified specialists. Sol
+retains intent, planning, architecture, security, integration, synthesis,
+verification, and engineering acceptance.
 
-All software-repository changes use this lifecycle. Read-only inspection,
-explanation, planning, and documentation-only work may use a proportionate
-direct workflow, but this exception does not cover code, test, configuration,
-or other behavior-changing edits. Stop before write work if the surface cannot
-provide the required lifecycle capability.
+Whenever a worker is selected, use a bounded packet with exact scope and
+evidence. Required review reads a stable target, reports findings, and does not
+author or accept it. Architecture and specialist quality practices are
+trigger-based lenses rather than universal nested workflows.
+
+Direct use is the default. In a mediated infrastructure engagement, keep
+repository engineering inside one engineering root and leave approval,
+credentials, service control, deployment, rollback, live verification, and
+operational acceptance with the operational controller. Nested engineering
+agents must not SSH, deploy, control services, access production credentials or
+state, or perform live verification. Tool capability does not grant those
+authorities.
+
+Keep inspect, design, implementation, review, commit, push or pull request,
+release, deployment or rollback, credentials, and production authority
+separate.
 
 When host evidence is available, attach only the allowlisted lifecycle facts required by the locally adopted assessment policy. This adapter does not claim Codex named-agent routing, model selection, sandbox enforcement, approval enforcement, or equivalent host controls; unavailable controls remain unverified.

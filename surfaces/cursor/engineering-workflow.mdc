@@ -3,10 +3,27 @@ description: CE + Sol/Luna engineering lifecycle
 alwaysApply: true
 ---
 
-Follow the canonical policy at `policy/engineering-lifecycle.md`. Sol owns intent, planning, architecture, security, integration, synthesis, verification, acceptance, and authorization for external writes. Implement only bounded packets with exact scope and observable criteria. Review must be independent, stable-diff, and read-only; reviewers report evidence and do not edit or accept. For substantive instrumented work, attach only allowlisted evidence from the canonical assessment policy; unavailable host controls remain unverified. Cursor rules preserve behavioral invariants but do not claim Codex named-agent routing, model selection, sandbox, or approval guarantees.
+Follow the canonical policy at `policy/engineering-lifecycle.md`. Classify work
+before execution and use the smallest safe lane: Observe and Small may be
+Sol-only; Standard selects a bounded maker and independent reviewer; High-risk
+uses full boundaries with only named-risk specialists. Tier 3 always wins.
 
-All software-repository changes use this lifecycle. Read-only inspection,
-explanation, planning, and documentation-only work may use a proportionate
-direct workflow, but this exception does not cover code, test, configuration,
-or other behavior-changing edits. Stop before write work if the surface cannot
-provide the required lifecycle capability.
+Sol owns intent, planning, architecture, security, integration, synthesis,
+verification, and engineering acceptance. Whenever a worker is selected, use
+exact scope and observable criteria. Required review is independent,
+stable-target, and read-only. Architecture and specialist quality practices are
+trigger-based lenses rather than universal nested workflows.
+
+Direct engagement is the default. In a mediated infrastructure engagement,
+keep repository engineering inside one engineering root and leave live
+approval, credentials, service control, deployment, rollback, live verification,
+and operational acceptance with the operational controller. Nested engineering
+agents must not SSH, deploy, control services, access production credentials or
+state, or live-verify. Tool capability does not grant authority.
+
+Track inspect, design, implementation, review, commit, push or pull request,
+release, deployment or rollback, credentials, and production authority
+separately. For substantive instrumented work, attach only allowlisted evidence
+from the canonical assessment policy; unavailable host controls remain
+unverified. Cursor rules preserve behavioral invariants but do not claim Codex
+named-agent routing, model selection, sandbox, or approval guarantees.

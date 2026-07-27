@@ -33,6 +33,7 @@ assert_no_symlink_components "$codex_root"
 sources=()
 targets=()
 while IFS= read -r line || [[ -n "$line" ]]; do
+  line=${line%$'\r'}
   [[ -n "$line" && "${line:0:1}" != "#" ]] || continue
   tabs=${line//[!$'\t']/}
   [[ ${#tabs} -eq 1 ]] || die "manifest row must contain exactly two fields: $line"

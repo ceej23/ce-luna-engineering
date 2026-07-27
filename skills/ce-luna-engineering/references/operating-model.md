@@ -11,9 +11,10 @@ Compound Engineering (CE) lifecycle with a clear separation between a lead
 (Sol), an implementation maker (Luna), and an independent reviewer (Luna).
 
 The model is intentionally tool- and vendor-neutral. Adapt the names to your
-team if needed; preserve the boundaries and evidence requirements. All
-software-repository changes use this lifecycle; direct handling is limited to
-read-only inspection, explanation, planning, and documentation-only work.
+team if needed; preserve proportional routing, role boundaries, evidence, and
+authorization requirements. Observe and Small work may be handled directly by
+Sol; makers and reviewers are selected by lane or named risk rather than made
+universal.
 
 ## Canonical cross-surface source
 
@@ -125,12 +126,52 @@ Tier 0 and Tier 1 may be Sol-only. Whenever a Luna maker or reviewer is used,
 all role, scope, control, independence, evidence, and delivery boundaries below
 still apply.
 
-Before any mutating work, tool call, or delegation, publish one compact routing
+Before mutating work or delegation, publish one compact routing
 declaration:
 
 `Lane: [selected lane] | Budget: [time/cost limit] | Agents: [topology]`
 
 Do not begin mutating work until the declaration contains an explicit budget.
+
+## Direct and mediated engagements
+
+Codex Desktop and Codex CLI use the direct topology by default:
+
+```text
+User -> engineering Sol -> optional lane-selected Luna maker/reviewer
+```
+
+Some infrastructure operations use a mediated topology:
+
+```text
+User
+  -> operational controller
+  -> one repository-engineering Sol
+       -> optional lane-selected Luna maker/reviewer
+  -> operational controller for deployment, rollback and live acceptance
+```
+
+This is a composition of operational and repository-engineering authority, not
+one CE lifecycle wrapped around another. The controller must not create a
+duplicate maker/reviewer panel for the same repository outcome.
+
+The operational controller owns current-state inspection, live-risk
+classification, approval capture, production controls and credentials, service
+lifecycle actions, deployment, rollback, live health verification, and
+operational acceptance. Engineering Sol owns repository framing within the
+bounded packet, repository lane selection, technical design and architecture,
+internal routing, integration, engineering verification, engineering
+acceptance, and an operator-ready return.
+
+The outer operational lane and inner repository lane may differ. A production
+deployment remains operational Tier 3 even when its isolated repository change
+is Tier 1. Repository architecture, security, migration, schema, dependency,
+credential, and other Tier 3 triggers still promote the inner lane.
+
+Nested engineering agents must not SSH back into the operator host, deploy,
+control services, access production credentials or state, or perform live
+verification. Tool access, including `--yolo`, provides capability rather than
+authority.
 
 ## The lifecycle
 
@@ -209,6 +250,10 @@ The lead owns the gates; a maker or reviewer supplies evidence for them.
   actions require explicit authorization and are not implied by implementation
   or review.
 
+Track inspect, design, implementation, review, commit, push or pull request,
+release, deployment or rollback, credentials, and production authority as
+separate states. Authority for one state never implies another.
+
 Assessment exceptions retain their underlying failed or unverified control,
 are scoped to one run and policy version, and expire. They never turn a result
 into an acceptance decision.
@@ -242,11 +287,14 @@ into an acceptance decision.
 - Treat specialist practices as optional lenses or checklists inside the
   selected lane, never as nested mandatory lifecycles. Do not create review
   panels by default.
-- P0 and P1 findings block automatically. P2 and P3 findings go to the backlog
-  unless Sol explicitly promotes them.
+- P0 and P1 findings block by default. Any finding that violates an explicit
+  acceptance criterion, safety or security policy, authorization boundary, or
+  rollout prerequisite blocks regardless of numeric severity. Other P2 and P3
+  findings may be deliberately deferred.
 - Allow one reviewer attempt and one retry only for a confirmed transient
-  infrastructure failure. Then record the exception, perform a Sol review, and
-  stop the review lane.
+  infrastructure failure against the same unchanged target. When remediation
+  changes the target, allow one focused independent re-review of affected axes;
+  this is not an infrastructure retry.
 - After checks pass and no blocker remains, stop. Suggestions do not reopen the
   lifecycle.
 - Use deterministic telemetry off the critical path. Keep the default
@@ -304,8 +352,10 @@ acceptance criteria, and the review axes that matter for the change. Require
 findings to include severity, file and line or symbol, direct evidence, the
 violated criterion, impact, and bounded remediation direction. Explicitly
 exclude edits, commits, pushes, acceptance, architecture or security-policy
-decisions, and subagent spawning. P0 and P1 findings block automatically; P2
-and P3 findings are advisory unless Sol promotes them.
+decisions, and subagent spawning. P0 and P1 findings block by default. A
+finding that violates acceptance, safety, security, policy, authorization, or
+rollout requirements blocks regardless of severity; other P2 and P3 findings
+may be deferred.
 
 ## Adapting the model
 
@@ -342,7 +392,7 @@ second competing default.
 A safe incremental adoption sequence is:
 
 1. Keep the existing skills available while documenting CE + Sol/Luna as the
-   required workflow for software-repository changes.
+   default proportional workflow for software-repository work.
 2. Pilot one bounded change with explicit packets, stable-baseline review, and
    parent-owned verification.
 3. Move recurring work to the CE lifecycle, retaining specialist practices as

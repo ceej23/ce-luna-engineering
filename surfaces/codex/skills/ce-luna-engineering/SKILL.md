@@ -1,220 +1,163 @@
 ---
 name: ce-luna-engineering
-description: Run implementation engineering through Compound Engineering with a Sol leader, Luna-medium maker, Luna-high read-only reviewer, and Sol synthesis. Use for feature delivery, bug fixes, refactors, backlog execution, test changes, UI engineering, and other work that changes a software repository. Also use when the user asks for the standard engineering workflow, maker-reviewer execution, delegated implementation, or end-to-end delivery across any project.
+description: Run proportional Compound Engineering with accountable Sol/Luna boundaries across direct Codex and mediated operator engagements.
 ---
 
-# CE Luna Engineering
+# CE + Sol/Luna Engineering
 
-Use Compound Engineering (CE) as the lifecycle and artifact system. Preserve a
-separate leader–maker–reviewer execution loop for implementation quality and
-cost control.
+Classify work before selecting lifecycle phases. Use the smallest lane that
+contains the risk; do not make every quality practice mandatory.
 
-## Non-negotiable routing
+## Select the lane
 
-- Leader and final authority: `gpt-5.6-sol`.
-- Maker: the named `luna_maker` custom agent (`gpt-5.6-luna` / `medium`),
-  workspace-write, bounded scope.
-- Reviewer: the named `luna_reviewer` custom agent (`gpt-5.6-luna` / `high`),
-  read-only, never an author of the slice.
-- Sol integrates, synthesizes findings, independently verifies, and accepts.
-- CE supplies planning, simplification, code review, learning capture, PR, and
-  CI workflows. Do not fork or edit CE plugin internals to enforce routing.
+| Lane | Qualifies when | Default execution | Budget |
+| --- | --- | --- | --- |
+| **Tier 0: Observe** | No target mutation | Sol only; focused evidence; no maker or reviewer | 15 minutes; 1 total agent |
+| **Tier 1: Small** | Localized, reversible, known solution; no cross-cutting or control-bearing decision | Sol or one bounded maker; focused verification; triggered review only | 30 minutes; 2 total agents |
+| **Tier 2: Standard** | Ordinary mutation that is neither Small nor High-risk | One maker, one reviewer, one remediation/re-review allowance, one broad Sol check | 60 minutes; 3 total agents |
+| **Tier 3: High-risk** | Architecture, public API/schema, migration, dependency, security, credentials, privacy-sensitive data, production, external writes, or irreversible effects | Full boundaries; focused specialists only for a named risk | Explicit task budget; 3 total agents before justified escalation |
 
-Codex V2 does not reliably expose Luna through a generic spawn model selector.
-Therefore dispatch Luna through the named custom-agent types above, never by
-passing a Luna `model` or `reasoning_effort` override to a generic spawn.
-Treat the configured role and the observed runtime route as different facts.
-Claim an actual model/effort only when host completion metadata proves it.
+Tier 3 always wins. A Tier 1 review trigger includes a user request, unexpected
+scope or ambiguity, a security/privacy-sensitive path, public interface,
+schema, migration or dependency implications, inadequate test evidence, or a
+risk Sol promotes. Promote the lane before continuing when needed.
 
-## Entry routing
+Tier 0 and Tier 1 may be Sol-only. Whenever Luna is used, all role, scope,
+control, independence, evidence, and delivery boundaries below apply.
 
-Resolve CE skill names against the current available-skills catalog; plugin
-namespaces vary by host. Never invent a short form that is not listed.
+Before mutation or delegation, publish:
 
-1. For an unclear feature or product problem, use `ce-brainstorm` before
-   `ce-plan`.
-2. For a clear non-trivial change, use `ce-plan` directly and retain its unified
-   plan artifact as the authority.
-3. For a difficult bug, use `ce-debug` to establish reproduction and root cause,
-   then return implementation ownership to this maker–reviewer loop.
-4. For a tiny, obvious, low-risk change, write explicit acceptance criteria in
-   the worker packet without forcing a large plan artifact.
-5. For read-only diagnosis, explanation, planning, or review, do not infer
-   authorization to implement.
+`Lane: [selected lane] | Budget: [time/cost limit] | Agents: [topology]`
 
-If CE is unavailable, stop before write work and report the missing plugin or
-skill. Do not silently fall back to retired MP lifecycle skills.
+## Run the selected lifecycle
 
-## Leader risk gate
+The complete path is:
 
-Keep these with Sol unless the user explicitly assigns a qualified owner:
+`Frame -> Plan -> Make -> Integrate -> Review -> Synthesize -> Compound`
 
-- architecture, public API, schemas, migrations, persistence, dependencies;
-- authentication, security controls, IAM, secrets, credentials, privacy;
-- sandbox, approval, network, provider, proxy, certificate, MCP, hooks, agent
-  configuration, telemetry, and prompt provenance;
-- Git history, releases, deployment, production, destructive or live actions;
-- ambiguous product or UX decisions and final acceptance.
+- **Sol** owns intent, classification, framing, plan decisions, architecture,
+  security, integration, synthesis, final verification, and engineering
+  acceptance.
+- **Luna maker** implements one bounded unit only.
+- **Luna reviewer** independently reviews a stable target in read-only mode.
+- **CE** supplies planning and quality practices. Architecture review, TDD,
+  domain modelling, UX review, simplification, code review, and other
+  specialist skills are selected-lane or named-risk lenses, never mandatory
+  nested workflows.
 
-Luna may gather evidence about these areas but must not decide or mutate them.
-When a bounded task discovers one, stop that lane and return it to Sol.
+Tier 0 and Tier 1 collapse phases that add no proportionate evidence. Tier 2
+uses the complete path within its limits. Tier 3 may add a focused specialist
+only for a named risk and within its explicit budget.
 
-## Maker–reviewer sequence
+## Dispatch only selected roles
 
 Read [references/worker-packets.md](references/worker-packets.md) before the
-first maker or reviewer dispatch in a run.
+first maker or reviewer dispatch.
 
-### 1. Establish the slice
+When the selected lane uses a maker, invoke the named `luna_maker` custom agent
+with no or minimal history and a complete bounded packet. When it uses a
+reviewer, invoke the named `luna_reviewer` against the stable target in
+read-only or isolated mode. Do not pass model or effort overrides as a
+substitute for a named role, and do not claim the observed model or effort
+without host evidence.
 
-Sol selects one reviewable vertical slice and records:
+If a selected role is unavailable, stop that required lane and report the
+limitation. Do not stop Tier 0 or Sol-only Tier 1 merely because an unselected
+role is unavailable.
 
-- objective and acceptance criteria;
-- exact allowed read and write scope;
-- verification commands;
-- prohibited operations and stop conditions;
-- CE plan path and implementation-unit IDs when present.
+A maker packet includes:
 
-Do not delegate unresolved design. Parallel makers require disjoint write scopes
-and no shared contract, schema, migration, lockfile, or generated surface.
+- working directory and plan/unit;
+- allowed read scope and exact write scope;
+- observable acceptance criteria;
+- exact verification commands;
+- prohibited operations and stop conditions; and
+- a return contract for files, checks, blockers, and residual risks.
 
-### 2. Dispatch Luna medium
+A reviewer packet includes the stable base and target, plan/unit, acceptance
+criteria, relevant axes, read-only requirement, prohibited operations, and the
+findings contract. Findings include severity, location, direct evidence,
+violated criterion, impact, and bounded remediation direction. Require
+`no findings` when appropriate.
 
-Invoke the maker as an actual subagent: call `agents.spawn_agent` with
-`agent_type: "luna_maker"` and `fork_turns: "none"`. The no-history fork is
-required when selecting a custom agent type; include the complete bounded
-worker packet in the spawn message. Do not use `local_worker`, a generic
-`default` agent, or model/effort overrides as a fallback.
+Makers and reviewers do not own architecture, public interfaces or schema,
+migration, dependencies, security, credentials, policy, product direction,
+Git, release, deployment, production, or acceptance. They do not spawn
+subagents or broaden scope.
 
-Start the packet with this auditable routing record:
+## Bound review and verification
 
-`Routing: <task>; selected luna_maker (gpt-5.6-luna/medium); reason: bounded implementation.`
+- A transient reviewer infrastructure failure permits one retry against the
+  same unchanged target.
+- When confirmed remediation changes the target, perform one focused
+  independent re-review of affected axes. This is not an infrastructure retry.
+- P0 and P1 findings block by default.
+- Any acceptance-criterion, safety, security, policy, authorization, or rollout
+  violation blocks regardless of numeric severity.
+- Other P2 and P3 findings may be deliberately deferred.
+- Run focused implementation checks and at most one broad Sol-owned check after
+  integration by default.
+- Stop when checks pass and no blocker remains. Suggestions do not reopen the
+  lifecycle.
+- Stop on budget breach and report progress, evidence, and remaining risk
+  rather than silently escalating.
 
-If `luna_maker` is absent or rejected by the runtime, report that limitation
-and stop the lane. Do not silently substitute another profile.
+## Preserve authority boundaries
 
-The maker may implement and run assigned verification. It may not commit, push,
-release, deploy, change dependencies, broaden scope, or spawn subagents.
+Track inspect, design, implement, review, commit, push or pull request, release,
+deploy or rollback, credentials, and production authority separately. Tool
+access, including `--yolo`, grants capability rather than authority.
 
-### 3. Integrate under Sol
+Commits, pushes, pull requests, releases, deployments, credentials, service
+lifecycle actions, production actions, and other external writes require
+separate explicit authorization. Implementation and review do not authorize
+delivery.
 
-Wait for every required maker. Inspect one result at a time, compare the
-worktree with the pre-dispatch baseline, reject scope drift, and run the
-lightest parent-owned integration check. Do not review a moving diff.
+## Use the direct topology by default
 
-### 4. Dispatch Luna high review
+Codex Desktop and Codex CLI normally use:
 
-Invoke the reviewer as an actual subagent: call `agents.spawn_agent` with
-`agent_type: "luna_reviewer"` and `fork_turns: "none"`, including the complete
-bounded review packet in the spawn message. Do not select Luna through generic
-model/effort overrides or substitute a different reviewer without user
-approval.
+`user -> engineering Sol -> optional lane-selected Luna maker/reviewer`
 
-Start the packet with this auditable routing record:
-
-`Routing: <task>; selected luna_reviewer (gpt-5.6-luna/high); reason: independent bounded review.`
-
-If `luna_reviewer` is absent or rejected by the runtime, report that limitation
-and stop the lane. The effective sandbox must be read-only or isolated from the
-leader's writable worktree. Report-only wording is not a security boundary.
-
-Capture worktree status and the review target before dispatch. Require findings
-ordered by severity with file/symbol evidence, the violated acceptance
-criterion, and a concise remediation direction. The reviewer never edits,
-accepts, commits, or releases.
-
-After review, compare the worktree again. Any reviewer write invalidates that
-review lane; preserve the evidence, do not integrate the edit, and return
-ownership to Sol.
-
-### 5. Synthesize under Sol
-
-Sol verifies reviewer claims, resolves conflicts, and chooses remediation. Send
-at most one focused retry to the maker. If the diff changes materially, restore
-a stable baseline and rerun affected independent review lanes.
-
-Sol independently runs final verification and decides acceptance. Luna output is
-evidence, never the completion authority.
-
-For each substantive instrumented run, record the minimum allowlisted lifecycle
-evidence defined by the canonical assessment policy. Capture requested,
-configured, and observed routing separately; never attach prompts, transcripts,
-diffs, source, absolute paths, environment values, or command output. Seal the
-record after synthesis and run the deterministic validator before using it for
-periodic assessment. A validator outcome is evidence for Sol and does not
-replace acceptance or delivery authorization.
-
-After Sol accepts substantive instrumented work, run the installed
-`ce-assess-engineering` runtime for validation, ingestion, and its optional
-report-only weekly `if-due` check. Use the selected absolute `CODEX_ROOT` and
-explicit agent/repository identifiers; do not ask makers to access assessment
-state. Missing, unready, drifted, or failed cadence is assessment
-`UNVERIFIED`/setup drift only and cannot delay or reverse Sol's acceptance.
-The cadence check is idempotent, local, and report-only; it never changes
-policy, proposals, approvals, or delivery state.
-
-## Orchestration terminal gate
-
-A required maker or reviewer that is still running is unfinished work. Never
-send a final response merely because an agent is slow or a wait timed out.
-
-- Treat `wait_agent` timeouts as heartbeats, not completion or blockers.
-- Keep progress such as "review is running" in commentary only. Continue
-  observing, with a concise user update at least every 60 seconds.
-- Collect each required agent's `FINAL_ANSWER`; an interim message is not a
-  terminal result.
-- If an agent stalls, nudge it, inspect status, then interrupt and restart the
-  bounded lane when necessary. Do not convert slowness into a user handoff.
-- Before final, synthesize findings, remediate and re-review material changes,
-  run Sol verification, and call `list_agents`. Every required descendant must
-  be terminal and no required CE tail step may still be running.
-- When genuinely blocked on external input, interrupt active descendants and
-  capture their state before returning control. Never leave orphaned work.
-
-Use this pre-final gate:
+For a mediated infrastructure engagement, use:
 
 ```text
-[ ] Required makers are terminal and every FINAL_ANSWER is collected
-[ ] Required reviewers are terminal and every FINAL_ANSWER is collected
-[ ] Findings are resolved or recorded; material remediation was re-reviewed
-[ ] Sol verification and required CE quality-tail steps are complete
-[ ] list_agents shows no required running descendants
+user
+  -> operational controller
+  -> one repository-engineering Sol
+       -> optional lane-selected Luna maker/reviewer
+  -> operational controller for deployment, rollback and live acceptance
 ```
 
-If any box is false, remain in the current turn and continue the orchestration
-loop using commentary and agent-wait tools.
+This is one repository-engineering lifecycle inside Codex, not a duplicate
+operator-side maker/reviewer lifecycle. The outer operational lane and inner
+repository lane are classified independently.
 
-## CE quality and shipping tail
+The operational controller retains current-state inspection, live-risk
+classification, approvals, credentials, service control, deployment, rollback,
+live verification, and operational acceptance. Engineering Sol retains
+repository framing within the packet, repository lane selection, technical
+design, internal routing, integration, engineering verification, engineering
+acceptance, and the operator-ready return.
 
-After the maker–reviewer loop succeeds:
+Nested engineering agents must not SSH back into the operator host, deploy,
+control services, access production credentials or state, or perform live
+verification. Stop rather than reinterpret ambiguous operational intent.
 
-1. Invoke `ce-simplify-code` for non-mechanical diffs large enough to benefit.
-2. Invoke `ce-code-review` in report-only/agent mode for every non-mechanical
-   implementation diff. Pass the CE plan path when one exists.
-3. Sol applies eligible fixes, reruns affected checks, and records residuals in
-   the CE-approved durable sink.
-4. Invoke `ce-compound` when the work produced a reusable solution, surprising
-   failure mode, or project convention.
-5. Use CE commit, PR, feedback, browser-test, dogfood, or babysit skills only
-   when the user or repository workflow authorizes those state changes.
+## Keep execution bounded
 
-For user-facing work, retain final UX and visual judgment with Sol and use the
-installed UX/design evaluator skills where applicable.
+- Send workers no history or minimal recent context plus one compact packet.
+- Keep one accepted outcome or immutable target per root.
+- On material scope expansion after acceptance, stop and require a fresh task.
+- For mediated continuation, send `immutable target + brief reference +
+  authority delta + remaining budget`.
+- Do not create review panels by default.
+- Keep deterministic telemetry off the critical path and report-only.
 
-## Verification and closeout
+## Close out
 
-Before claiming completion, report:
-
-- CE artifact and implementation-unit scope;
-- requested, configured, and observed maker/reviewer routes separately;
-- files changed and scope-drift result;
-- maker verification and independent Sol verification;
-- Luna review result and any remediation/re-review;
-- CE simplify, code-review, and compound status or justified skips;
-- Git, PR, push, and CI status without implying actions that did not occur;
-- residual risks and rollback information.
-- assessment bundle path and deterministic conformance result, when the run is
-  instrumented; report `UNVERIFIED` instead of inferring unavailable runtime
-  evidence.
-
-Start a new Codex session after agent, plugin, or skill installation changes so
-the available roles and skills refresh.
+Sol reports the selected lane and budget, files changed, scope result, checks,
+review and remediation result when selected, residual risk, and each delivery
+authority state without implying actions that did not occur. Assessment
+evidence remains report-only and never replaces engineering or operational
+acceptance.

@@ -1,4 +1,4 @@
 interface:
-  display_name: "CE Luna Engineering"
-  short_description: "Sol-led CE delivery with Luna maker/reviewer"
-  default_prompt: "Use $ce-luna-engineering to deliver this engineering task through CE with Luna maker and reviewer lanes."
+  display_name: "CE + Sol/Luna Engineering"
+  short_description: "Run proportional CE + Sol/Luna engineering"
+  default_prompt: "Use $ce-luna-engineering to classify this task and run the smallest safe lane with only the roles it requires."

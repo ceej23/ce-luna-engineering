@@ -14,7 +14,12 @@ of a policy change.
 
 Review the adapter and copy it into the native project or user configuration using your organization's approved process. For Codex, [`AGENTS.md`](../AGENTS.md) is the complete portable policy source; merge it or the focused `AGENTS.fragment.md` and `config.fragment.toml` deliberately. The installer never replaces complete personal policy or configuration files. Run `scripts/check-codex-drift.sh` for read-only evidence on the complete agent and skill files listed in the manifest. Installation requires an explicit `--apply` and an alternate `CODEX_ROOT` may be used for testing: `CODEX_ROOT=/tmp/codex-test scripts/install-codex.sh --apply`.
 
-When policy changes, update the policy, affected adapters, manifest or scripts, README, and CONTRIBUTING together. Never add credentials, complete personal configuration, machine paths, trust settings, MCP/connectors, caches, histories, or databases. Do not mutate an active home configuration as part of review or CI.
+When policy changes, update the policy, affected adapters, distributable and
+manifest-managed skills, manifest or scripts, README, CONTRIBUTING, and
+cross-surface contract tests together. Never add credentials, complete personal
+configuration, machine paths, trust settings, MCP/connectors, caches, histories,
+or databases. Do not mutate an active home configuration as part of review or
+CI.
 
 Use `scripts/validate-assessment.sh` on an explicit local bundle path and retain
 only its redacted result. `UNVERIFIED` means the deployment cannot establish a
@@ -22,6 +27,27 @@ required control; do not convert it into compliance. Exceptions require a
 lead-owned, expiring record and retain the underlying result. Periodic
 assessment is report-only and any adopted recommendation follows the same
 policy-first, cross-surface review path as other lifecycle changes.
+
+## Choose the engagement topology
+
+Codex Desktop and Codex CLI use the direct topology by default: the user works
+with one engineering Sol, which selects only the maker or reviewer roles
+required by the repository lane.
+
+A mediated infrastructure operator is a special composition, not the default.
+Use the [Infra-to-Codex adapter](../surfaces/hermes-infra/README.md) when an
+operator owns live systems but delegates repository engineering to one
+standalone Codex root. The outer operational lane and inner repository lane may
+differ. Keep any Luna roles inside Codex and require separate
+engineering and operational acceptance. Codex makes engineering acceptance;
+the operator makes operational acceptance.
+
+Nested engineering agents must not SSH, deploy, control services, access
+production credentials or state, or perform live verification. The operator
+packet states inspect, design, implementation, review, commit, push or pull
+request, release, deployment or rollback, credential, and production authority
+independently. Tool access, including `--yolo`, provides capability rather than
+authority.
 
 The installed assessment skill keeps disposable records under the selected
 absolute `CODEX_ROOT`, partitioned by explicit agent and repository identity.
