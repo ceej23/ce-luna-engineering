@@ -3,9 +3,10 @@
 This repository publishes the CE + Sol/Luna operating model and its installable
 Codex skill.
 
-- Treat `README.md` as the canonical human guide and preserve its Sol lead,
-  bounded Luna maker, independent read-only Luna reviewer, evidence, and
-  authorization boundaries.
+- Treat `policy/engineering-lifecycle.md` as the canonical lifecycle authority
+  and `README.md` as its human guide. Preserve proportional routing, Sol
+  accountability, bounded Luna roles when selected, independent review when
+  required, evidence, and authorization boundaries.
 - Distribute the installable skill only from
   `skills/ce-luna-engineering/`.
 - Keep the skill instructions, `agents/openai.yaml`, and
@@ -15,7 +16,7 @@ Codex skill.
   everything after it byte-equivalent to `README.md` after newline
   normalization.
 - Run `python -m unittest discover -s tests -p "test_*.py"`,
-  `python -m py_compile scripts/validate_skill.py tests/test_validate_skill.py`,
+  `python -m py_compile scripts/validate_skill.py tests/test_validate_skill.py tests/test_policy_contract.py`,
   and `python scripts/validate_skill.py` for every repository change.
 - Do not weaken Sol/Luna role boundaries or imply that implementation or review
   authorizes commits, pushes, pull requests, releases, deployments, production
@@ -33,36 +34,54 @@ It implements the canonical policy in
 repository-specific domain, security, and command rules alongside it; they may
 be stricter but must not weaken these lifecycle or safety requirements.
 
-## Mandatory engineering workflow
+## Proportional engineering workflow
 
-All software-repository changes must use `ce-luna-engineering` as the governing
-framework. This includes features, bug fixes, refactors, code and test changes,
-UI engineering, build or configuration code, and small mechanical
-behavior-changing edits. Do not substitute another implementation workflow.
+Use `ce-luna-engineering` as the governing framework for software-repository
+work. Sol classifies the request before execution and publishes a lane, budget,
+and agent topology before mutation or delegation:
 
-Read-only inspection, explanation, planning, and documentation-only changes may
-be handled directly by Sol with proportionate verification. This exception must
-not be used for code, test, configuration, or other behavior-changing edits. If
-CE or a required role is unavailable, stop before write work and report the
-limitation; do not silently fall back to another workflow.
+- **Tier 0: Observe:** no mutation; Sol only.
+- **Tier 1: Small:** localized and reversible; Sol or one bounded maker;
+  review only on a named trigger.
+- **Tier 2: Standard:** one bounded maker, one independent reviewer, one
+  remediation/re-review allowance, and one broad Sol check.
+- **Tier 3: High-risk:** architecture, public interface or schema, migration,
+  dependency, security, credentials, privacy, production, external writes, or
+  irreversible effects; use full role boundaries and only focused,
+  risk-justified specialists.
 
-For implementation, Sol owns intent, planning, architecture, security,
-integration, synthesis, final verification, and acceptance. Dispatch only the
-named `luna_maker` for bounded implementation and `luna_reviewer` for
-independent read-only review. Sol integrates a stable baseline before review,
-verifies findings, performs the required CE quality tail, and decides
-completion.
+Tier 3 always wins. Tier 0 and Tier 1 may be Sol-only. Do not stop merely
+because a maker or reviewer is unavailable when the selected lane does not
+require one.
 
-Before the first maker or reviewer dispatch, read the CE skill's worker-packet
-reference and provide complete bounded packets with acceptance criteria, exact
-scope, verification commands, prohibited operations, and stop conditions.
-Closeout must distinguish requested, configured, and observed maker/reviewer
-routes; never claim observed model or effort without host evidence.
+Sol owns intent, classification, planning, architecture, security, integration,
+synthesis, verification, and engineering acceptance. Whenever Luna is used,
+read the worker-packet reference and provide exact scope, observable acceptance
+criteria, verification commands, prohibited operations, stop conditions, and a
+return contract. Required review is independent, stable-target, and read-only.
 
-Use CE skill names exactly as exposed by the installed plugin. `tdd`,
-`codebase-design`, `domain-modeling`, and `improve-codebase-architecture` are
-optional quality disciplines within the CE lifecycle, not competing workflows.
+Use CE skill names exactly as exposed by the installed plugin. Architecture
+review, `tdd`, `codebase-design`, `domain-modeling`,
+`improve-codebase-architecture`, simplification, code review, and other
+specialist practices are selected-lane or named-risk lenses, not mandatory
+nested workflows or universal quality tails.
+
+One transient reviewer infrastructure failure may be retried once against the
+same unchanged target. Remediation that changes the target instead permits one
+focused independent re-review of affected axes. P0/P1 findings block by
+default; any acceptance, safety, policy, authorization, or rollout violation
+blocks regardless of numeric severity. Other P2/P3 findings may be deferred.
+
+The direct user-to-Sol topology is the default for Codex Desktop and CLI.
+Mediated infrastructure engagements use one operational controller and one
+repository-engineering Sol, with optional Luna roles internal to the latter.
+The controller retains live approval, credentials, service control, deployment,
+rollback, live verification, and operational acceptance. Nested engineering
+agents must not SSH, deploy, control services, access production credentials or
+state, or live-verify through the operator environment.
 
 Repository-specific instructions may add domain commands and stricter safety
-rules. They must not weaken sandbox requirements, parent-owned final
-verification, or external-write authorization.
+rules. They must not weaken parent-owned final verification or external-write
+authorization. Tool capability, including `--yolo`, is not authority. Track
+inspect, design, implementation, review, commit, push or pull request, release,
+deployment or rollback, credentials, and production authorization separately.

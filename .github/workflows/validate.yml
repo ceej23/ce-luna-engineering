@@ -26,7 +26,10 @@ jobs:
         run: python -m unittest discover -s tests -p "test_*.py"
 
       - name: Compile validator
-        run: python -m py_compile scripts/validate_skill.py tests/test_validate_skill.py
+        run: python -m py_compile scripts/validate_skill.py tests/test_validate_skill.py tests/test_policy_contract.py
 
       - name: Validate skill package
         run: python scripts/validate_skill.py
+
+      - name: Validate Codex installer with CRLF manifest
+        run: bash scripts/test-codex-install.sh

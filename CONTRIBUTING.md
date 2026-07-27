@@ -5,8 +5,9 @@ more reusable for engineering teams.
 
 - Keep examples host-neutral and free of private paths, credentials, customer
   information, and unverified implementation claims.
-- Preserve the Sol lead, Luna maker, and independent reviewer boundaries unless
-  a change explicitly explains the new contract.
+- Preserve proportional lane selection, the Sol lead, bounded Luna maker, and
+  independent reviewer boundaries when their lane selects them unless a change
+  explicitly explains the new contract.
 - Prefer concise Markdown, small focused edits, and observable guidance.
 - Update the lifecycle, role table, or worker packet when changing a related
   rule so the guide remains internally consistent.
@@ -18,7 +19,7 @@ more reusable for engineering teams.
   lifecycle behavior, role boundaries, gates, dispatch packets, or invocation
   guidance.
 - Run `python -m unittest discover -s tests -p "test_*.py"`,
-  `python -m py_compile scripts/validate_skill.py tests/test_validate_skill.py`,
+  `python -m py_compile scripts/validate_skill.py tests/test_validate_skill.py tests/test_policy_contract.py`,
   and `python scripts/validate_skill.py` before submitting a change. The
   validator is dependency-free and checks the exact package manifest, metadata
   schemas, placeholders, and canonical README and license copies.
@@ -40,7 +41,8 @@ transcripts, diffs, source, absolute paths, environment values, or personal
 runtime data.
 
 Before proposing a change, run `bash -n scripts/check-codex-drift.sh`,
-`bash -n scripts/install-codex.sh`, and temporary-root drift/install smoke tests.
+`bash -n scripts/install-codex.sh`, `bash scripts/test-codex-install.sh`, and
+temporary-root drift/install smoke tests.
 The checker is read-only; installation requires `--apply` and should be tested
 with `CODEX_ROOT` rather than an active home configuration. Drift or scope
 changes should be explained in the contribution.

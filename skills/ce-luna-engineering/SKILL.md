@@ -1,6 +1,6 @@
 ---
 name: ce-luna-engineering
-description: Run a proportional Compound Engineering lifecycle with accountable Sol/Luna boundaries. Use when adopting CE + Sol/Luna, or when non-trivial engineering work benefits from bounded makers and independent review.
+description: Run a proportional Compound Engineering lifecycle with accountable Sol/Luna boundaries across direct and mediated engagements. Use when adopting CE + Sol/Luna or when engineering work benefits from bounded makers and independent review.
 ---
 
 # CE + Sol/Luna Engineering
@@ -31,7 +31,7 @@ Tier 0 and Tier 1 may be Sol-only. This deliberately replaces the earlier
 universal maker/reviewer requirement. Whenever Luna is used, every role,
 scope, control, independence, evidence, and delivery boundary below applies.
 
-Before any mutating work, tool call, or delegation, publish:
+Before mutating work or delegation, publish:
 
 `Lane: [selected lane] | Budget: [time/cost limit] | Agents: [topology]`
 
@@ -64,10 +64,14 @@ specialist only for a named risk and within its explicit budget.
 - For mediated continuation, send `immutable target + brief reference +
   authority delta + remaining budget`.
 - Do not create panels by default.
-- P0 and P1 findings block. P2 and P3 are backlog unless Sol promotes them.
+- P0 and P1 findings block by default. Any finding that violates an explicit
+  acceptance criterion, safety or security policy, authorization boundary, or
+  rollout prerequisite blocks regardless of numeric severity. Other P2 and P3
+  findings may be deliberately deferred.
 - Allow one reviewer attempt and one retry only for confirmed transient
-  infrastructure failure. Then record the exception, perform Sol review, and
-  stop the review lane.
+  infrastructure failure against the same unchanged target. When remediation
+  changes the target, allow one focused independent re-review of affected axes;
+  this is not an infrastructure retry.
 - Run focused implementation checks and at most one broad Sol-owned check
   after integration by default.
 - Stop when checks pass and no blocker remains. Suggestions do not reopen the
@@ -113,6 +117,42 @@ policy, or spawn subagents.
 - Commits, pushes, pull requests, releases, deployments, production actions,
   and other external writes require separate explicit user authorization.
 - Implementation and review authorization do not authorize delivery.
+
+Track inspect, design, implementation, review, commit, push or pull request,
+release, deployment or rollback, credentials, and production authority as
+separate states. Tool access, including `--yolo`, grants capability rather than
+authority.
+
+## Compose direct and mediated engagements
+
+Codex Desktop and Codex CLI use the direct topology by default:
+
+`user -> engineering Sol -> optional lane-selected Luna maker/reviewer`
+
+For a mediated infrastructure engagement, use exactly one repository-
+engineering root:
+
+```text
+user
+  -> operational controller
+  -> repository-engineering Sol
+       -> optional lane-selected Luna maker/reviewer
+  -> operational controller for deployment, rollback and live acceptance
+```
+
+The controller owns current-state inspection, live-risk classification,
+approval capture, production controls and credentials, service lifecycle
+actions, deployment, rollback, live verification, and operational acceptance.
+Engineering Sol owns repository framing within the packet, repository lane
+selection, technical design, internal routing, integration, engineering
+verification, engineering acceptance, and an operator-ready return.
+
+The outer operational lane and inner repository lane may differ. Do not create
+a duplicate controller-side maker/reviewer lifecycle. Nested engineering agents
+must not SSH back into the operator host, deploy, control services, access
+production credentials or state, or perform live verification. Sol may refine
+technical criteria but stops rather than reinterpreting ambiguous product or
+operational intent.
 
 ## Read the full operating model
 
