@@ -2,13 +2,15 @@
 set -euo pipefail
 
 repo_root=$(CDPATH= cd -- "$(dirname -- "$0")/.." && pwd)
-tmp_parent=$(CDPATH= cd -P -- "${TMPDIR:-/tmp}" && pwd)
+tmp_parent=${TMPDIR:-/tmp}
+[[ -d /private/tmp ]] && tmp_parent=/private/tmp
 tmp=$(mktemp -d "$tmp_parent/assessment-install.XXXXXX")
 trap 'rm -rf "$tmp"' EXIT
 codex_root="$tmp/codex"
+skill_root="$tmp/ce-skill"
 
-CODEX_ROOT="$codex_root" bash "$repo_root/scripts/install-codex.sh" --apply >/dev/null
-CODEX_ROOT="$codex_root" bash "$repo_root/scripts/check-codex-drift.sh" >/dev/null
+CODEX_ROOT="$codex_root" CE_SKILL_ROOT="$skill_root" bash "$repo_root/scripts/install-codex.sh" --apply >/dev/null
+CODEX_ROOT="$codex_root" CE_SKILL_ROOT="$skill_root" bash "$repo_root/scripts/check-codex-drift.sh" >/dev/null
 
 runtime="$codex_root/skills/ce-assess-engineering/runtime"
 window=(python3 "$runtime/scripts/assessment_window.py" --codex-root "$codex_root")
@@ -42,20 +44,20 @@ bash "$runtime/scripts/validate-assessment.sh" "$bundle" --summary "$summary" >/
 python3 "$runtime/scripts/assessment_window.py" --codex-root "$codex_root" --agent maker-a --repository repo-a --now 2026-07-25T12:00:00Z if-due >/dev/null
 
 repeat_log="$tmp/repeat-install.log"
-CODEX_ROOT="$codex_root" bash "$repo_root/scripts/install-codex.sh" --apply >"$repeat_log"
+CODEX_ROOT="$codex_root" CE_SKILL_ROOT="$skill_root" bash "$repo_root/scripts/install-codex.sh" --apply >"$repeat_log"
 ! grep -q '^backup:' "$repeat_log"
-CODEX_ROOT="$codex_root" bash "$repo_root/scripts/check-codex-drift.sh" >/dev/null
+CODEX_ROOT="$codex_root" CE_SKILL_ROOT="$skill_root" bash "$repo_root/scripts/check-codex-drift.sh" >/dev/null
 
 chmod -x "$runtime/scripts/validate-assessment.sh"
-if CODEX_ROOT="$codex_root" bash "$repo_root/scripts/check-codex-drift.sh" >/dev/null 2>&1; then
+if CODEX_ROOT="$codex_root" CE_SKILL_ROOT="$skill_root" bash "$repo_root/scripts/check-codex-drift.sh" >/dev/null 2>&1; then
   echo "mode drift was not detected" >&2
   exit 1
 fi
-CODEX_ROOT="$codex_root" bash "$repo_root/scripts/install-codex.sh" --apply >/dev/null
+CODEX_ROOT="$codex_root" CE_SKILL_ROOT="$skill_root" bash "$repo_root/scripts/install-codex.sh" --apply >/dev/null
 [[ -x "$runtime/scripts/validate-assessment.sh" ]]
 
 printf '# drift mutation\n' >> "$runtime/policy/engineering-assessment.md"
-if CODEX_ROOT="$codex_root" bash "$repo_root/scripts/check-codex-drift.sh" >/dev/null 2>&1; then
+if CODEX_ROOT="$codex_root" CE_SKILL_ROOT="$skill_root" bash "$repo_root/scripts/check-codex-drift.sh" >/dev/null 2>&1; then
   echo "drift mutation was not detected" >&2
   exit 1
 fi

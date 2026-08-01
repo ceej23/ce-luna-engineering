@@ -78,7 +78,14 @@ The checker compares only complete manifest targets and exits non-zero for missi
 
 For migration, inventory effective global, parent, repository, and nested
 `AGENTS.md` instructions; install or update the skill and start a fresh task;
-replace only the duplicated CE lifecycle block with a thin skill-routing
-stanza; preserve RTK, Tokensave, safety, security, testing, and domain rules;
-then verify effective context. Keep a rollback diff and leave precedence
-conflicts explicit when the runtime cannot inspect them deterministically.
+then replace only the duplicated CE lifecycle block with a thin skill-routing
+stanza. Preserve RTK, Tokensave, safety, security, testing, and domain rules,
+verify effective context, keep a rollback diff, and leave precedence conflicts
+explicit when the runtime cannot inspect them deterministically.
+
+Desktop and CLI share the canonical `~/.agents/skills/ce-luna-engineering`.
+`CE_SKILL_ROOT` is only an installer/drift-check target override, not a runtime
+discovery selector. Back up and retire any legacy
+`~/.codex/skills/ce-luna-engineering` only after fresh-task discovery; duplicate
+copies can load stale instructions. To roll back, restore the legacy backup,
+move the canonical directory aside, and start a fresh task.

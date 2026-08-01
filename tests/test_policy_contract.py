@@ -45,6 +45,7 @@ DOCUMENTS = {
 }
 NORMALIZED = {name: normalized(text) for name, text in DOCUMENTS.items()}
 MANIFEST = read("manifest/codex-files.tsv")
+SKILL_MANIFEST = read("manifest/ce-luna-skill-files.tsv")
 
 
 class PolicyContractTestCase(unittest.TestCase):
@@ -467,16 +468,34 @@ class CrossSurfaceDriftContractTests(PolicyContractTestCase):
                 )
 
     def test_codex_skill_source_is_independently_manifested(self) -> None:
-        self.assertIn(
-            "skills/ce-luna-engineering/SKILL.md"
-            "\tskills/ce-luna-engineering/SKILL.md",
-            MANIFEST.replace("\r\n", "\n"),
-        )
+        self.assertIn("skills/ce-luna-engineering/SKILL.md\tSKILL.md", SKILL_MANIFEST)
+        self.assertNotIn("skills/ce-luna-engineering", MANIFEST)
+
+    def test_canonical_skill_install_does_not_revert_to_codex_home(self) -> None:
+        installer = read("scripts/install-codex.sh")
+        checker = read("scripts/check-codex-drift.sh")
+        for script in (installer, checker):
+            self.assertIn(".agents/skills/ce-luna-engineering", script)
+            self.assertNotIn('.codex/skills/ce-luna-engineering', script)
+
+    def test_skill_migration_distinguishes_target_override_from_discovery(self) -> None:
+        for document_name in ("README", "bundled README reference"):
+            document = NORMALIZED[document_name]
+            self.assertIn("ce_skill_root", document)
+            self.assertTrue(
+                "not a runtime discovery selector" in document
+                or "never a runtime discovery selector" in document
+            )
+            self.assertIn(".agents/skills/ce-luna-engineering", document)
+        self.assertIn("ce_skill_root", NORMALIZED["operating guide"])
+        self.assertIn(".agents/skills/ce-luna-engineering", NORMALIZED["operating guide"])
+        self.assertIn("$codex_home/skills", NORMALIZED["README"])
+        self.assertIn("destination parent", NORMALIZED["README"])
 
     def test_installed_skill_uses_authoritative_package_source(self) -> None:
         manifest_rows = {
             tuple(line.split("\t", 1))
-            for line in MANIFEST.replace("\r\n", "\n").splitlines()
+            for line in SKILL_MANIFEST.replace("\r\n", "\n").splitlines()
             if line and not line.startswith("#")
         }
         package_files = {
@@ -490,7 +509,7 @@ class CrossSurfaceDriftContractTests(PolicyContractTestCase):
                 self.assertIn(
                     (
                         f"skills/ce-luna-engineering/{relative_file}",
-                        f"skills/ce-luna-engineering/{relative_file}",
+                        relative_file,
                     ),
                     manifest_rows,
                 )

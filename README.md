@@ -17,11 +17,14 @@ The portable authority is [`policy/engineering-lifecycle.md`](policy/engineering
 [`AGENTS.md`](AGENTS.md) is the complete portable Codex policy; the decision
 record, operating guide, and native adapters live under `docs/` and `surfaces/`.
 Git is canonical; installed Codex files are deployments.
-Use [`manifest/codex-files.tsv`](manifest/codex-files.tsv) with the read-only
-drift checker, and opt into installation only with
-`scripts/install-codex.sh --apply` (set `CODEX_ROOT` to test an alternate
-target). The manifest installs the authoritative package from
-`skills/ce-luna-engineering/` and contains complete agent and skill files only.
+Use [`manifest/codex-files.tsv`](manifest/codex-files.tsv) and
+[`manifest/ce-luna-skill-files.tsv`](manifest/ce-luna-skill-files.tsv) with the
+read-only drift checker, and opt into installation only with
+`scripts/install-codex.sh --apply`. The canonical CE skill defaults to
+`~/.agents/skills/ce-luna-engineering`; `CE_SKILL_ROOT` is only an installer and
+drift-checker target override for testing, never a runtime discovery selector.
+`CODEX_ROOT` remains the separate Codex-home destination for
+agent role TOMLs and the assessment runtime.
 Surface copies under `surfaces/codex/` are adapters kept in exact parity by
 review and validation. Merge the
 tracked `AGENTS.md` and `config.toml` fragments manually so unrelated policy
@@ -44,11 +47,21 @@ as a global default are separate actions:
 To install the skill from GitHub, give Codex this exact prompt:
 
 > Use `$skill-installer` to install `skills/ce-luna-engineering` from
-> `ceej23/ce-luna-engineering`.
+> `ceej23/ce-luna-engineering` into the destination parent `~/.agents/skills`,
+> verify the resulting path is `~/.agents/skills/ce-luna-engineering`, and do
+> not use `$CODEX_HOME/skills` because that creates a legacy duplicate.
 
-The standard installer places the package under the active Codex home. Start a
-fresh Codex task after installation so its skill catalog is reloaded and the
-skill can be discovered.
+The canonical installer places the package under `~/.agents/skills`, shared by
+Codex Desktop and CLI. Start a fresh Codex task after installation so its skill
+catalog is reloaded and the skill can be discovered.
+
+Agents that already have `~/.codex/skills/ce-luna-engineering` should inventory
+both copies, keep a timestamped backup, install the canonical path, and start
+a fresh task. Verify drift before retiring the legacy copy; leaving both copies
+active risks duplicate discovery and stale instructions. Roll back by backing
+up/restoring the legacy copy, moving the canonical `~/.agents/skills/ce-luna-engineering`
+aside, and starting a fresh task; `CE_SKILL_ROOT` only selects an installer or
+drift-check target and does not activate runtime discovery.
 
 Installing the skill makes explicit invocation available; it does not modify
 your global instructions. To adopt the lifecycle as the default, use this

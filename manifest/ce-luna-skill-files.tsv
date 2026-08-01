@@ -1,0 +1,5 @@
+# repository-relative source<TAB>path relative to the canonical CE skill root
+skills/ce-luna-engineering/SKILL.md	SKILL.md
+skills/ce-luna-engineering/agents/openai.yaml	agents/openai.yaml
+skills/ce-luna-engineering/references/operating-model.md	references/operating-model.md
+skills/ce-luna-engineering/references/LICENSE	references/LICENSE
