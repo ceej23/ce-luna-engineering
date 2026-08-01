@@ -24,7 +24,7 @@ the risk:
 | Lane | Qualifies when | Default execution | Default budget |
 | --- | --- | --- | --- |
 | **Tier 0: Observe** | No target mutation | Sol only; focused evidence; no maker or reviewer | 15 minutes; 1 total agent |
-| **Tier 1: Small** | Localized, reversible, known solution with no cross-cutting or control-bearing decision | Sol or one bounded maker; focused verification; review only on a named trigger | 30 minutes; 2 total agents |
+| **Tier 1: Small** | Localized, reversible, known solution with no cross-cutting or control-bearing decision; an explicitly requested browser-local or single-user artifact replacement may qualify when bounded and unrelated state is preserved | Sol or one bounded maker; focused verification; review only on a named trigger | 30 minutes; 2 total agents |
 | **Tier 2: Standard** | Ordinary mutation that is neither Small nor High-risk | One maker, one independent reviewer, one remediation/re-review allowance, and one broad Sol check | 60 minutes; 3 total agents |
 | **Tier 3: High-risk** | Architecture, public API or schema, migration, dependency, security, credentials, privacy-sensitive data, production, external writes, or irreversible effects | Full role boundaries; focused specialists only for a named risk | Explicit task budget; 3 total agents before justified escalation |
 
@@ -41,6 +41,12 @@ declaration. Before delegation or any Tier 2 or Tier 3 mutation, publish:
 Tier 0 and Tier 1 may be Sol-only. The complete lifecycle remains:
 
 `Frame -> Plan -> Make -> Integrate -> Review -> Synthesize -> Compound`
+
+An explicitly requested browser-local or single-user artifact replacement is
+still Tier 1 only when the target is bounded, reversible, and unrelated state
+is preserved. For a one-file local artifact, do not fan out specialist review:
+use one focused validation and stop. Promote the lane if the artifact crosses
+users, systems, security boundaries, or external state.
 
 Collapse phases that do not add proportionate evidence. Tier 2 uses the complete
 path within its limits. Tier 3 adds only risk-justified specialists within its
@@ -94,6 +100,9 @@ or final acceptance.
   tool path, switch approach or report the verification gap and stop.
 - Stop when required checks pass and no blocker remains. Suggestions do not
   reopen the lifecycle.
+- After acceptance, allow at most three minutes to reassess a newly discovered
+  issue. If it is a new outcome or material scope expansion, stop, preserve the
+  accepted target, and start a fresh task rather than churning in the old root.
 - Stop at the declared time, cost, retry, agent, or verification budget and
   report progress, evidence, and remaining risk rather than silently escalating.
 

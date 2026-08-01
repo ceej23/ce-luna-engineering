@@ -7,6 +7,12 @@ High-risk uses full role boundaries and only risk-justified specialists. Sol
 retains intent, planning, architecture, security, integration, synthesis,
 verification, and engineering acceptance.
 
+For an explicitly requested, bounded, reversible browser-local or single-user
+artifact replacement that preserves unrelated state, a one-file local artifact
+must not fan out specialist review: run one focused validation and stop. This
+never suppresses a named Tier 1 review trigger or Tier 2/3 promotion; promote
+when any trigger applies.
+
 Whenever a worker is selected, use a bounded packet with exact scope and
 evidence. Required review reads a stable target, reports findings, and does not
 author or accept it. Architecture and specialist quality practices are
@@ -19,6 +25,10 @@ partial findings or a blocker rather than lingering. Frontend/browser
 verification uses one canonical local HTTP preview rooted at the resolved
 target; after two failed attempts, switch approach or report the verification
 gap and stop.
+
+After acceptance, allow at most three minutes to reassess a newly discovered
+issue. If it is a new outcome or material scope expansion, stop, preserve the
+accepted target, and start a fresh task rather than churning in the old root.
 
 Direct use is the default. In a mediated infrastructure engagement, keep
 repository engineering inside one engineering root and leave approval,

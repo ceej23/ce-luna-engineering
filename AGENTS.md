@@ -42,7 +42,9 @@ may classify inline without a formal routing declaration; before delegation or
 any Tier 2 or Tier 3 mutation, Sol publishes a lane, budget, and agent topology:
 
 - **Tier 0: Observe:** no mutation; Sol only.
-- **Tier 1: Small:** localized and reversible; Sol or one bounded maker;
+- **Tier 1: Small:** localized and reversible; explicitly requested
+  browser-local or single-user artifact replacements qualify when bounded and
+  unrelated state is preserved; Sol or one bounded maker;
   review only on a named trigger.
 - **Tier 2: Standard:** one bounded maker, one independent reviewer, one
   remediation/re-review allowance, and one broad Sol check.
@@ -81,6 +83,11 @@ findings or a blocker if it cannot finish. Frontend/browser verification uses
 one canonical local HTTP preview rooted at the resolved target; after two
 failed attempts with that preview or tool path, switch approach or report the
 verification gap and stop.
+
+For a one-file browser-local or single-user artifact, do not fan out specialist
+review; use one focused validation and stop. After acceptance, allow at most
+three minutes to reassess a new issue. Material scope expansion is a fresh task;
+preserve the accepted target instead of churning in the old root.
 
 The direct user-to-Sol topology is the default for Codex Desktop and CLI.
 Mediated infrastructure engagements use one operational controller and one

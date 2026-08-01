@@ -49,6 +49,12 @@ request, release, deployment or rollback, credential, and production authority
 independently. Tool access, including `--yolo`, provides capability rather than
 authority.
 
+An explicitly requested browser-local or single-user artifact replacement may
+use Tier 1 Small when bounded, reversible, and unrelated state is preserved.
+One-file local artifacts use one focused validation and no specialist review
+fan-out. After acceptance, reassess a new issue for at most three minutes;
+material scope expansion starts a fresh task.
+
 The installed assessment skill keeps disposable records under the selected
 absolute `CODEX_ROOT`, partitioned by explicit agent and repository identity.
 Use its UTC ISO weekly `if-due` check only after Sol accepts substantive
@@ -69,3 +75,10 @@ package or Bash-only guarantee is assumed.
 ## Drift semantics
 
 The checker compares only complete manifest targets and exits non-zero for missing or different files. Fragments are reviewed manually because replacing a full `AGENTS.md` or `config.toml` would discard unrelated policy and machine settings. The installer is inert without `--apply`, writes only manifest targets, rejects unsafe target roots and paths, and backs up differing existing files before overwriting them.
+
+For migration, inventory effective global, parent, repository, and nested
+`AGENTS.md` instructions; install or update the skill and start a fresh task;
+replace only the duplicated CE lifecycle block with a thin skill-routing
+stanza; preserve RTK, Tokensave, safety, security, testing, and domain rules;
+then verify effective context. Keep a rollback diff and leave precedence
+conflicts explicit when the runtime cannot inspect them deterministically.

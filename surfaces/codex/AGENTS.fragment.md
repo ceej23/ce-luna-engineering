@@ -12,6 +12,10 @@ declaration; Standard uses one bounded maker and one independent reviewer;
 High-risk uses the full boundaries plus only focused, risk-justified
 specialists. Tier 3 always wins.
 
+Explicitly requested browser-local or single-user artifact replacements may be
+Tier 1 Small when bounded and unrelated state is preserved. One-file local
+artifacts use one focused validation with no specialist review fan-out.
+
 Sol owns framing, planning, architecture, security, integration, synthesis,
 verification, and engineering acceptance. Whenever a maker or reviewer is
 selected, preserve exact scope, stop conditions, evidence, independence, and
@@ -39,6 +43,9 @@ partial findings or a blocker rather than lingering. Frontend/browser
 verification uses one canonical local HTTP preview rooted at the resolved
 target; after two failed attempts, switch approach or report the verification
 gap and stop.
+
+After acceptance, allow at most three minutes to reassess; material scope
+expansion is a fresh task and must preserve the accepted target.
 
 For substantive instrumented work, produce only the allowlisted lifecycle evidence required by `policy/engineering-assessment.md`, validate it before assessment, and preserve `UNVERIFIED` when the runtime cannot prove a required control. Assessment remains report-only and never replaces Sol acceptance or external-write authorization.
 

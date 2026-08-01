@@ -13,7 +13,7 @@ contains the risk; do not make every quality practice mandatory.
 | Lane | Qualifies when | Default execution | Budget |
 | --- | --- | --- | --- |
 | **Tier 0: Observe** | No target mutation | Sol only; focused evidence; no maker or reviewer | 15 minutes; 1 total agent |
-| **Tier 1: Small** | Localized, reversible, known solution; no cross-cutting or control-bearing decision | Sol or one bounded maker; focused verification; triggered review only | 30 minutes; 2 total agents |
+| **Tier 1: Small** | Localized, reversible, known solution; no cross-cutting or control-bearing decision; explicitly requested browser-local or single-user artifact replacements qualify when bounded and unrelated state is preserved | Sol or one bounded maker; focused verification; triggered review only | 30 minutes; 2 total agents |
 | **Tier 2: Standard** | Ordinary mutation that is neither Small nor High-risk | One maker, one reviewer, one remediation/re-review allowance, one broad Sol check | 60 minutes; 3 total agents |
 | **Tier 3: High-risk** | Architecture, public API/schema, migration, dependency, security, credentials, privacy-sensitive data, production, external writes, or irreversible effects | Full boundaries; focused specialists only for a named risk | Explicit task budget; 3 total agents before justified escalation |
 
@@ -29,6 +29,13 @@ Tier 0 and Sol-only Tier 1 work may classify inline without a formal routing
 declaration. Before delegation or any Tier 2 or Tier 3 mutation, publish:
 
 `Lane: [selected lane] | Budget: [time/cost limit] | Agents: [topology]`
+
+For an explicitly requested, bounded, reversible browser-local or single-user
+artifact replacement that preserves unrelated state, a one-file local artifact
+must not fan out specialist review: run one focused validation and stop. This
+never suppresses a named Tier 1 review trigger or Tier 2/3 promotion; promote
+when any trigger applies or the artifact crosses users, systems, security
+boundaries, or external state.
 
 ## Run the selected lifecycle
 
@@ -110,6 +117,9 @@ subagents or broaden scope.
   lifecycle.
 - Stop on budget breach and report progress, evidence, and remaining risk
   rather than silently escalating.
+- After acceptance, allow at most three minutes to reassess a newly discovered
+  issue. A new outcome or material scope expansion stops this task; preserve
+  the accepted target and start a fresh task.
 
 ## Preserve authority boundaries
 
@@ -170,3 +180,15 @@ review and remediation result when selected, residual risk, and each delivery
 authority state without implying actions that did not occur. Assessment
 evidence remains report-only and never replaces engineering or operational
 acceptance.
+
+## Migrate duplicated AGENTS.md workflow blocks
+
+Inventory every applicable global, parent, repository, and nested `AGENTS.md`
+and determine effective precedence. Install or update this skill, start a fresh
+task, and replace only the duplicated CE lifecycle/default-routing block with a
+thin `$ce-luna-engineering` routing stanza. Preserve RTK, Tokensave, safety,
+security, testing, domain, and stricter repository rules. Inspect the diff and
+verify effective context in a fresh task; if precedence cannot be inspected,
+leave the conflict explicit rather than overwriting an `AGENTS.md` wholesale.
+Keep a rollback diff for the replaced block and re-run the inventory after
+skill updates to detect drift; restore only that block if needed.

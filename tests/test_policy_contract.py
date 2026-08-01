@@ -468,10 +468,82 @@ class CrossSurfaceDriftContractTests(PolicyContractTestCase):
 
     def test_codex_skill_source_is_independently_manifested(self) -> None:
         self.assertIn(
-            "surfaces/codex/skills/ce-luna-engineering/SKILL.md"
+            "skills/ce-luna-engineering/SKILL.md"
             "\tskills/ce-luna-engineering/SKILL.md",
             MANIFEST.replace("\r\n", "\n"),
         )
+
+    def test_installed_skill_uses_authoritative_package_source(self) -> None:
+        manifest_rows = {
+            tuple(line.split("\t", 1))
+            for line in MANIFEST.replace("\r\n", "\n").splitlines()
+            if line and not line.startswith("#")
+        }
+        package_files = {
+            "SKILL.md",
+            "agents/openai.yaml",
+            "references/operating-model.md",
+            "references/LICENSE",
+        }
+        for relative_file in package_files:
+            with self.subTest(file=relative_file):
+                self.assertIn(
+                    (
+                        f"skills/ce-luna-engineering/{relative_file}",
+                        f"skills/ce-luna-engineering/{relative_file}",
+                    ),
+                    manifest_rows,
+                )
+
+    def test_local_artifact_exception_keeps_review_triggers_and_promotion(self) -> None:
+        bounded_rule = (
+            "For an explicitly requested, bounded, reversible browser-local or "
+            "single-user artifact replacement that preserves unrelated state, a "
+            "one-file local artifact must not fan out specialist review: run one "
+            "focused validation and stop. This never suppresses a named Tier 1 "
+            "review trigger or Tier 2/3 promotion"
+        )
+        for document_name in (
+            "package skill",
+            "Codex surface skill",
+            "Claude Code adapter",
+            "Cursor adapter",
+        ):
+            with self.subTest(document=document_name):
+                self.assert_fragments(document_name, (bounded_rule,))
+
+    def test_completion_stop_and_migration_guidance_are_contractual(self) -> None:
+        stop = (
+            "at most three minutes",
+            "newly discovered issue",
+            "new outcome",
+            "material scope expansion",
+            "preserve the accepted target",
+            "start a fresh task",
+        )
+        migration = (
+            "inventory every",
+            "precedence",
+            "preserve RTK",
+            "fresh task",
+            "rollback",
+            "drift",
+        )
+        for document_name in ("package skill", "README", "Codex surface skill"):
+            with self.subTest(document=document_name):
+                self.assert_fragments(document_name, stop)
+                self.assert_fragments(document_name, migration)
+
+    def test_claude_and_cursor_use_canonical_post_acceptance_stop(self) -> None:
+        canonical = (
+            "After acceptance, allow at most three minutes to reassess a newly "
+            "discovered issue. If it is a new outcome or material scope "
+            "expansion, stop, preserve the accepted target, and start a fresh "
+            "task rather than churning in the old root."
+        )
+        for document_name in ("Claude Code adapter", "Cursor adapter"):
+            with self.subTest(document=document_name):
+                self.assert_fragments(document_name, (canonical,))
 
     def test_openai_metadata_preserves_proportional_routing(self) -> None:
         for document_name in (

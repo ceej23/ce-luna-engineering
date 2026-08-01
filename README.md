@@ -20,7 +20,10 @@ Git is canonical; installed Codex files are deployments.
 Use [`manifest/codex-files.tsv`](manifest/codex-files.tsv) with the read-only
 drift checker, and opt into installation only with
 `scripts/install-codex.sh --apply` (set `CODEX_ROOT` to test an alternate
-target). The manifest contains complete agent and skill files only. Merge the
+target). The manifest installs the authoritative package from
+`skills/ce-luna-engineering/` and contains complete agent and skill files only.
+Surface copies under `surfaces/codex/` are adapters kept in exact parity by
+review and validation. Merge the
 tracked `AGENTS.md` and `config.toml` fragments manually so unrelated policy
 and machine settings are preserved. Backups are made when an existing manifest
 target differs. Credentials, MCP details, machine paths, trust settings,
@@ -98,7 +101,7 @@ smallest lane that contains the risk:
 | Lane | Qualifies when | Default execution | Default budget |
 | --- | --- | --- | --- |
 | **Tier 0: Observe** | No target mutation: diagnosis, status, evidence inspection, or reporting | Sol only; focused evidence; no maker or reviewer | 15 minutes; 1 total agent |
-| **Tier 1: Small** | Localized, reversible, known solution; no cross-cutting or control-bearing decision | Sol or one bounded maker; focused verification; review only on a named trigger | 30 minutes; 2 total agents |
+| **Tier 1: Small** | Localized, reversible, known solution; no cross-cutting or control-bearing decision; an explicitly requested browser-local or single-user artifact replacement may qualify when bounded and unrelated state is preserved | Sol or one bounded maker; focused verification; review only on a named trigger | 30 minutes; 2 total agents |
 | **Tier 2: Standard** | Ordinary mutation that does not qualify as Small or High-risk | One bounded maker, one independent reviewer, one remediation/re-review maximum, one broad Sol check | 60 minutes; 3 total agents |
 | **Tier 3: High-risk** | Architecture, public API or schema, migration, dependency, security, credentials, privacy-sensitive data, production, external writes, or irreversible effects | Full Sol/maker/reviewer boundaries; focused specialists only for a named risk | Explicit task budget; 3 total agents before justified escalation |
 
@@ -120,6 +123,12 @@ This classification deliberately revises the earlier universal contract:
 Tier 0 and Tier 1 may be Sol-only. Whenever a Luna maker or reviewer is used,
 all role, scope, control, independence, evidence, and delivery boundaries below
 still apply.
+
+An explicitly requested browser-local or single-user artifact replacement is
+Tier 1 only when the target is bounded, reversible, and unrelated state is
+preserved. A one-file local artifact must not fan out specialist review; use
+one focused validation and stop. Promote the lane if the artifact crosses
+users, systems, security boundaries, or external state.
 
 Tier 0 and Sol-only Tier 1 work may classify inline without a formal routing
 declaration. Before delegation or any Tier 2 or Tier 3 mutation, publish one
@@ -302,6 +311,9 @@ into an acceptance decision.
   tool path, switch approach or report the verification gap and stop.
 - After checks pass and no blocker remains, stop. Suggestions do not reopen the
   lifecycle.
+- After acceptance, allow at most three minutes to reassess a newly discovered
+  issue. If it is a new outcome or material scope expansion, stop, preserve the
+  accepted target, and start a fresh task rather than churning in the old root.
 - Use deterministic telemetry off the critical path. Keep the default
   post-execution assessment under one minute and use no subagent. Deepen it
   only after a budget breach, repeated failure, discarded work, user rejection,
@@ -460,6 +472,28 @@ effective context is reloaded. Where the runtime supports effective-context
 inspection, verify that the intended lifecycle is the only default and that
 unrelated rules remain active; otherwise, record that this verification is
 conditional and retain unresolved precedence conflicts.
+
+### Migrating duplicated workflow blocks
+
+For agents that already carry a copied CE workflow block in one or more
+`AGENTS.md` files, use this bounded migration:
+
+1. Inventory every effective `AGENTS.md` (global, parent, repository, and
+   nested) and record the runtime's precedence order.
+2. Install or update the `ce-luna-engineering` skill from this repository, then
+   start a fresh task so the skill catalog reloads.
+3. Replace only the duplicated CE lifecycle/default-routing block with a thin
+   stanza that routes to `$ce-luna-engineering`; preserve RTK, Tokensave,
+   safety, security, testing, and domain rules, including any stricter rules.
+4. Inspect the diff, verify effective context in a fresh task, and confirm CE
+   is the only default lifecycle while unrelated instructions remain active.
+5. If precedence cannot be inspected deterministically, leave the conflict
+   explicit and report it rather than overwriting a file wholesale.
+
+Keep a rollback copy or versioned diff of each edited block. Re-run the
+inventory after upgrades to detect drift; restore only the prior CE block if a
+rollback is needed, and never restore unrelated instructions or personal
+settings.
 
 ## License
 

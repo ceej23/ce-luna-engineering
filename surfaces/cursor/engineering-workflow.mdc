@@ -8,6 +8,12 @@ before execution and use the smallest safe lane: Observe and Small may be
 Sol-only; Standard selects a bounded maker and independent reviewer; High-risk
 uses full boundaries with only named-risk specialists. Tier 3 always wins.
 
+For an explicitly requested, bounded, reversible browser-local or single-user
+artifact replacement that preserves unrelated state, a one-file local artifact
+must not fan out specialist review: run one focused validation and stop. This
+never suppresses a named Tier 1 review trigger or Tier 2/3 promotion; promote
+when any trigger applies.
+
 Sol owns intent, planning, architecture, security, integration, synthesis,
 verification, and engineering acceptance. Whenever a worker is selected, use
 exact scope and observable criteria. Required review is independent,
@@ -21,6 +27,10 @@ partial findings or a blocker rather than lingering. Frontend/browser
 verification uses one canonical local HTTP preview rooted at the resolved
 target; after two failed attempts, switch approach or report the verification
 gap and stop.
+
+After acceptance, allow at most three minutes to reassess a newly discovered
+issue. If it is a new outcome or material scope expansion, stop, preserve the
+accepted target, and start a fresh task rather than churning in the old root.
 
 Direct engagement is the default. In a mediated infrastructure engagement,
 keep repository engineering inside one engineering root and leave live

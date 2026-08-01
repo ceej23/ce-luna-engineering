@@ -1,9 +1,10 @@
 # repository-relative source<TAB>CODEX_ROOT-relative target
 surfaces/codex/agents/luna-maker.toml	agents/luna-maker.toml
 surfaces/codex/agents/luna-reviewer.toml	agents/luna-reviewer.toml
-surfaces/codex/skills/ce-luna-engineering/SKILL.md	skills/ce-luna-engineering/SKILL.md
-surfaces/codex/skills/ce-luna-engineering/agents/openai.yaml	skills/ce-luna-engineering/agents/openai.yaml
-surfaces/codex/skills/ce-luna-engineering/references/worker-packets.md	skills/ce-luna-engineering/references/worker-packets.md
+skills/ce-luna-engineering/SKILL.md	skills/ce-luna-engineering/SKILL.md
+skills/ce-luna-engineering/agents/openai.yaml	skills/ce-luna-engineering/agents/openai.yaml
+skills/ce-luna-engineering/references/operating-model.md	skills/ce-luna-engineering/references/operating-model.md
+skills/ce-luna-engineering/references/LICENSE	skills/ce-luna-engineering/references/LICENSE
 surfaces/codex/skills/ce-assess-engineering/SKILL.md	skills/ce-assess-engineering/SKILL.md
 surfaces/codex/skills/ce-assess-engineering/agents/openai.yaml	skills/ce-assess-engineering/agents/openai.yaml
 # Self-contained assessment runtime (all paths resolve beneath the installed skill)
