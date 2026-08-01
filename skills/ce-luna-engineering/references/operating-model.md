@@ -126,12 +126,14 @@ Tier 0 and Tier 1 may be Sol-only. Whenever a Luna maker or reviewer is used,
 all role, scope, control, independence, evidence, and delivery boundaries below
 still apply.
 
-Before mutating work or delegation, publish one compact routing
-declaration:
+Tier 0 and Sol-only Tier 1 work may classify inline without a formal routing
+declaration. Before delegation or any Tier 2 or Tier 3 mutation, publish one
+compact routing declaration:
 
 `Lane: [selected lane] | Budget: [time/cost limit] | Agents: [topology]`
 
-Do not begin mutating work until the declaration contains an explicit budget.
+When a declaration is required, do not begin mutating work until it contains
+an explicit budget.
 
 ## Direct and mediated engagements
 
@@ -295,6 +297,14 @@ into an acceptance decision.
   infrastructure failure against the same unchanged target. When remediation
   changes the target, allow one focused independent re-review of affected axes;
   this is not an infrastructure retry.
+- If a maker or reviewer produces no material file, test, finding, or blocker
+  after roughly 10 minutes, return a progress checkpoint to Sol. Tier 2 should
+  checkpoint around 30 minutes and stop for reassessment at its 60-minute
+  budget rather than silently looping. A review is normally bounded to 15–20
+  minutes and returns partial findings or a blocker if it cannot finish.
+- For frontend or browser verification, use one canonical local HTTP preview
+  rooted at the resolved target. After two failed attempts with that preview or
+  tool path, switch approach or report the verification gap and stop.
 - After checks pass and no blocker remains, stop. Suggestions do not reopen the
   lifecycle.
 - Use deterministic telemetry off the critical path. Keep the default

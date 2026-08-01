@@ -25,7 +25,8 @@ risk Sol promotes. Promote the lane before continuing when needed.
 Tier 0 and Tier 1 may be Sol-only. Whenever Luna is used, all role, scope,
 control, independence, evidence, and delivery boundaries below apply.
 
-Before mutation or delegation, publish:
+Tier 0 and Sol-only Tier 1 work may classify inline without a formal routing
+declaration. Before delegation or any Tier 2 or Tier 3 mutation, publish:
 
 `Lane: [selected lane] | Budget: [time/cost limit] | Agents: [topology]`
 
@@ -97,6 +98,14 @@ subagents or broaden scope.
 - Other P2 and P3 findings may be deliberately deferred.
 - Run focused implementation checks and at most one broad Sol-owned check after
   integration by default.
+- If a maker or reviewer produces no material file, test, finding, or blocker
+  after roughly 10 minutes, return a progress checkpoint to Sol. Tier 2 should
+  checkpoint around 30 minutes and stop for reassessment at its 60-minute
+  budget rather than silently looping. A review is normally bounded to 15–20
+  minutes and returns partial findings or a blocker if it cannot finish.
+- For frontend or browser verification, use one canonical local HTTP preview
+  rooted at the resolved target. After two failed attempts with that preview or
+  tool path, switch approach or report the verification gap and stop.
 - Stop when checks pass and no blocker remains. Suggestions do not reopen the
   lifecycle.
 - Stop on budget breach and report progress, evidence, and remaining risk

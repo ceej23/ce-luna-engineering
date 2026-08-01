@@ -240,9 +240,7 @@ class TopologyAndAuthorityContractTests(PolicyContractTestCase):
                     ("live-verify", "perform live verification"),
                 )
 
-    def test_declaration_gate_applies_only_before_mutation_or_delegation(
-        self,
-    ) -> None:
+    def test_sol_only_low_risk_work_avoids_formal_declaration(self) -> None:
         for document_name in (
             "canonical policy",
             "README",
@@ -250,17 +248,13 @@ class TopologyAndAuthorityContractTests(PolicyContractTestCase):
             "bundled README reference",
         ):
             with self.subTest(document=document_name):
-                self.assert_any_fragment(
+                self.assert_fragments(
                     document_name,
-                    "the mutation-or-delegation declaration trigger",
                     (
-                        "before mutating work or delegation",
-                        "before mutation or delegation",
+                        "Tier 0 and Sol-only Tier 1",
+                        "without a formal routing declaration",
+                        "before delegation or any Tier 2 or Tier 3 mutation",
                     ),
-                )
-                self.assertNotIn(
-                    normalized("before any mutating work, tool call, or delegation"),
-                    NORMALIZED[document_name],
                 )
 
     def test_tool_capability_never_grants_authority(self) -> None:
@@ -313,6 +307,30 @@ class TopologyAndAuthorityContractTests(PolicyContractTestCase):
 
 
 class ReviewAndQualityTailContractTests(PolicyContractTestCase):
+    def test_bounded_progress_and_frontend_preview_are_explicit(self) -> None:
+        required = (
+            "roughly 10 minutes",
+            "30 minutes",
+            "60-minute budget",
+            "15-20 minutes",
+            "canonical local HTTP preview",
+            "two failed attempts",
+            "verification gap",
+        )
+        for document_name in (
+            "canonical policy",
+            "README",
+            "portable Codex policy",
+            "Codex adapter",
+            "Codex surface skill",
+            "Claude Code adapter",
+            "Cursor adapter",
+            "package skill",
+            "bundled README reference",
+        ):
+            with self.subTest(document=document_name):
+                self.assert_fragments(document_name, required)
+
     def test_architecture_and_specialist_tails_are_triggered(self) -> None:
         for document_name in (
             "canonical policy",

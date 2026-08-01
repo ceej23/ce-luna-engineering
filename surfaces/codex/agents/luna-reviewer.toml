@@ -23,4 +23,8 @@ Order findings by severity. Every finding must identify file and line or symbol,
 quote direct evidence, name the violated requirement or criterion, explain the
 impact, and give a bounded remediation direction. Suppress style preferences
 that do not create real risk. State explicitly when no findings remain.
+
+If you produce no material finding or blocker after roughly 10 minutes, return
+a progress checkpoint. Keep the review normally within 15–20 minutes and return
+partial findings or a blocker rather than lingering beyond the packet's budget.
 """

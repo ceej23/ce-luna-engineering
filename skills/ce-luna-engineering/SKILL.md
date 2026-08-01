@@ -31,11 +31,13 @@ Tier 0 and Tier 1 may be Sol-only. This deliberately replaces the earlier
 universal maker/reviewer requirement. Whenever Luna is used, every role,
 scope, control, independence, evidence, and delivery boundary below applies.
 
-Before mutating work or delegation, publish:
+Tier 0 and Sol-only Tier 1 work may classify inline without a formal routing
+declaration. Before delegation or any Tier 2 or Tier 3 mutation, publish:
 
 `Lane: [selected lane] | Budget: [time/cost limit] | Agents: [topology]`
 
-Do not begin mutating work without an explicit budget in that declaration.
+When a declaration is required, do not begin mutating work without an explicit
+budget in it.
 
 ## Run the selected lifecycle
 
@@ -74,6 +76,14 @@ specialist only for a named risk and within its explicit budget.
   this is not an infrastructure retry.
 - Run focused implementation checks and at most one broad Sol-owned check
   after integration by default.
+- If a maker or reviewer produces no material file, test, finding, or blocker
+  after roughly 10 minutes, return a progress checkpoint to Sol. Tier 2 should
+  checkpoint around 30 minutes and stop for reassessment at its 60-minute
+  budget rather than silently looping. A review is normally bounded to 15–20
+  minutes and returns partial findings or a blocker if it cannot finish.
+- For frontend or browser verification, use one canonical local HTTP preview
+  rooted at the resolved target. After two failed attempts with that preview or
+  tool path, switch approach or report the verification gap and stop.
 - Stop when checks pass and no blocker remains. Suggestions do not reopen the
   lifecycle.
 - On budget breach, stop and report progress, evidence, and remaining risk.

@@ -6,8 +6,9 @@ personal or repository-specific `AGENTS.md`.
 
 Use `ce-luna-engineering` as the governing framework and the canonical policy
 at `policy/engineering-lifecycle.md`. Classify before execution and publish a
-lane, budget, and topology before mutation or delegation. Observe and Small may
-be Sol-only; Standard uses one bounded maker and one independent reviewer;
+lane, budget, and topology before delegation or Standard/High-risk mutation.
+Observe and Sol-only Small work may classify inline without a formal routing
+declaration; Standard uses one bounded maker and one independent reviewer;
 High-risk uses the full boundaries plus only focused, risk-justified
 specialists. Tier 3 always wins.
 
@@ -30,6 +31,14 @@ Track inspect, design, implementation, review, commit, push or pull request,
 release, deployment or rollback, credentials, and production authority
 separately. Tool access, including `--yolo`, is capability rather than
 authority.
+
+Workers return a checkpoint after roughly 10 minutes without material progress;
+Standard checkpoints around 30 minutes and stops for reassessment at its
+60-minute budget. Review is normally bounded to 15–20 minutes and returns
+partial findings or a blocker rather than lingering. Frontend/browser
+verification uses one canonical local HTTP preview rooted at the resolved
+target; after two failed attempts, switch approach or report the verification
+gap and stop.
 
 For substantive instrumented work, produce only the allowlisted lifecycle evidence required by `policy/engineering-assessment.md`, validate it before assessment, and preserve `UNVERIFIED` when the runtime cannot prove a required control. Assessment remains report-only and never replaces Sol acceptance or external-write authorization.
 

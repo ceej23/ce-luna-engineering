@@ -37,8 +37,9 @@ be stricter but must not weaken these lifecycle or safety requirements.
 ## Proportional engineering workflow
 
 Use `ce-luna-engineering` as the governing framework for software-repository
-work. Sol classifies the request before execution and publishes a lane, budget,
-and agent topology before mutation or delegation:
+work. Sol classifies the request before execution. Tier 0 and Sol-only Tier 1
+may classify inline without a formal routing declaration; before delegation or
+any Tier 2 or Tier 3 mutation, Sol publishes a lane, budget, and agent topology:
 
 - **Tier 0: Observe:** no mutation; Sol only.
 - **Tier 1: Small:** localized and reversible; Sol or one bounded maker;
@@ -71,6 +72,15 @@ same unchanged target. Remediation that changes the target instead permits one
 focused independent re-review of affected axes. P0/P1 findings block by
 default; any acceptance, safety, policy, authorization, or rollout violation
 blocks regardless of numeric severity. Other P2/P3 findings may be deferred.
+
+Workers return a progress checkpoint after roughly 10 minutes without a
+material file, test, finding, or blocker. Tier 2 checkpoints around 30 minutes
+and stops for reassessment at its 60-minute budget rather than silently
+looping. Review is normally bounded to 15–20 minutes and returns partial
+findings or a blocker if it cannot finish. Frontend/browser verification uses
+one canonical local HTTP preview rooted at the resolved target; after two
+failed attempts with that preview or tool path, switch approach or report the
+verification gap and stop.
 
 The direct user-to-Sol topology is the default for Codex Desktop and CLI.
 Mediated infrastructure engagements use one operational controller and one

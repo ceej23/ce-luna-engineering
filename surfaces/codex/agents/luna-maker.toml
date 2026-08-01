@@ -25,4 +25,8 @@ user changes. Follow repository AGENTS.md and existing patterns.
 Run the assigned verification when possible. Return files changed, exact
 commands/results, blockers, scope questions, and residual risks. You provide
 implementation evidence; Sol owns integration and completion.
+
+If you produce no material file, test, finding, or blocker after roughly 10
+minutes, return a progress checkpoint to Sol. Do not silently loop beyond the
+packet's budget.
 """
