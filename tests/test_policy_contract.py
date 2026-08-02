@@ -129,21 +129,19 @@ class TopologyAndAuthorityContractTests(PolicyContractTestCase):
     def test_tier_two_three_fail_closed_and_scale_without_ceiling(self) -> None:
         policy = NORMALIZED["canonical policy"]
         for fragment in (
-            "fail-closed precondition to the first write",
+            "fail-closed before the first write",
             "include Sol",
-            "at least one bounded maker",
-            "at least one independent reviewer",
-            "silence about delegation does not downgrade",
-            "default starting topology, not a ceiling",
-            "multiple independently bounded makers",
-            "exclusive and non-overlapping write ownership",
-            "dependencies",
-            "integration order",
-            "integrates every completed unit before review",
-            "authored none of the target",
-            "avoid default panels",
+            "one or more bounded makers",
+            "one independent reviewer",
+            "two or more genuinely independent",
+            "non-overlapping units",
+            "record unit IDs",
+            "exclusive owned paths",
+            "integrates all units before review",
+            "no default panels",
             "stop before mutation",
-            "falling back to Tier 2/3 Sol-only",
+            "justify reclassification",
+            "minimum needed for a named risk",
         ):
             self.assertIn(normalized(fragment), policy)
 
@@ -155,9 +153,17 @@ class TopologyAndAuthorityContractTests(PolicyContractTestCase):
             (
                 "unique unit ID",
                 "exclusive and non-overlapping",
-                "dependencies and the required integration order",
+                "dependencies and integration order only where they exist",
                 "reviewer authored none of the integrated target",
             ),
+        )
+
+    def test_tier_two_three_declaration_stays_compact(self) -> None:
+        self.assertIn(
+            normalized(
+                "Lane: [selected lane] | Budget: [limit] | Agents: [Sol + makers + reviewer] | Units: [IDs]"
+            ),
+            NORMALIZED["canonical policy"],
         )
 
     def test_direct_codex_is_default_and_mediation_is_special(self) -> None:

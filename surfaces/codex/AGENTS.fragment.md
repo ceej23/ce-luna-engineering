@@ -10,12 +10,13 @@ lane, budget, and topology before delegation or Standard/High-risk mutation.
 Observe and Sol-only Small work may classify inline without a formal routing
 declaration; Standard uses one or more bounded makers and at least one
 independent integrated reviewer; High-risk uses the same minimum plus only
-focused, risk-justified specialists. Tier 3 always wins. Tier 2/3 topology is
-fail-closed before the first write and must include Sol, a maker, and an
-independent reviewer; three agents is a baseline, not a ceiling. Multiple
-makers require rationale, non-overlapping ownership, dependencies, integration
-order, and budget; Sol integrates all units before review, and missing capacity
-stops mutation rather than falling back to Sol-only.
+focused, risk-justified specialists. Tier 3 always wins. Tier 2/3 publishes
+`Lane | Budget | Agents | Units` and requires Sol, one or more bounded makers,
+and an independent integrated reviewer before the first write. Use multiple
+makers only for genuinely independent, non-overlapping units; record IDs and
+owned paths, adding dependency/order only when needed. Sol integrates all
+units before review; missing capacity stops mutation unless facts justify
+reclassification.
 
 Explicitly requested browser-local or single-user artifact replacements may be
 Tier 1 Small when bounded and unrelated state is preserved. One-file local

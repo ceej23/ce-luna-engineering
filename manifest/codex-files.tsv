@@ -8,7 +8,6 @@ scripts/validate-assessment.sh	skills/ce-assess-engineering/runtime/scripts/vali
 scripts/assessment_safe_open.py	skills/ce-assess-engineering/runtime/scripts/assessment_safe_open.py
 scripts/assessment_window.py	skills/ce-assess-engineering/runtime/scripts/assessment_window.py
 assessment/schema/run-events-v1.tsv	skills/ce-assess-engineering/runtime/assessment/schema/run-events-v1.tsv
-assessment/schema/run-events-v2.tsv	skills/ce-assess-engineering/runtime/assessment/schema/run-events-v2.tsv
 assessment/schema/capability-matrix-v1.tsv	skills/ce-assess-engineering/runtime/assessment/schema/capability-matrix-v1.tsv
 assessment/schema/validated-summary-v1.tsv	skills/ce-assess-engineering/runtime/assessment/schema/validated-summary-v1.tsv
 policy/engineering-assessment.md	skills/ce-assess-engineering/runtime/policy/engineering-assessment.md
@@ -18,4 +17,3 @@ surfaces/claude-code/CLAUDE.fragment.md	skills/ce-assess-engineering/runtime/sur
 surfaces/cursor/engineering-workflow.mdc	skills/ce-assess-engineering/runtime/surfaces/cursor/engineering-workflow.mdc
 .github/workflows/assessment-conformance.yml	skills/ce-assess-engineering/runtime/.github/workflows/assessment-conformance.yml
 assessment/fixtures/valid-codex-run/events.tsv	skills/ce-assess-engineering/runtime/test-fixtures/valid-codex-run/events.tsv
-assessment/fixtures/v2-tier2-single/events.tsv	skills/ce-assess-engineering/runtime/test-fixtures/v2-tier2-single/events.tsv

@@ -55,15 +55,13 @@ any Tier 2 or Tier 3 mutation, Sol publishes a lane, budget, and agent topology:
   independent integrated reviewer, and only focused, risk-justified
   specialists.
 
-Tier 3 always wins. Tier 0 and Tier 1 may be Sol-only. For Tier 2/3, the
-declared topology must include Sol, at least one bounded maker, and at least
-one independent reviewer before the first write; user silence cannot downgrade
-that requirement. Three agents is a default starting topology, not a ceiling:
-multiple makers require recorded decomposition rationale, exclusive ownership,
-dependencies, integration order, and sufficient budget. Sol integrates all
-units before review and the integrated reviewer must have authored none of the
-target. If roles, capacity, or budget are unavailable, stop before mutation
-rather than falling back to Sol-only Tier 2/3.
+Tier 3 always wins. Tier 0 and Tier 1 may be Sol-only. For Tier 2/3, publish
+`Lane | Budget | Agents | Units` and include Sol, one or more bounded makers,
+and one independent integrated reviewer before the first write. Use multiple
+makers for genuinely independent, non-overlapping units; otherwise use one.
+Record unit IDs and owned paths, adding dependency/order only when needed. Sol
+integrates all units before review; unavailable mandatory capacity stops
+mutation unless facts justify reclassification.
 
 Sol owns intent, classification, planning, architecture, security, integration,
 synthesis, verification, and engineering acceptance. Whenever Luna is used,

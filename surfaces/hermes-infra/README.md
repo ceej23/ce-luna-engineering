@@ -61,12 +61,12 @@ The standalone Codex process owns:
 Codex may refine technical acceptance criteria. It stops rather than
 reinterpreting ambiguous product or operational intent.
 
-Three agents is a default starting topology, not a ceiling. Multiple makers
-require recorded rationale, exclusive ownership, dependencies, integration
-order, and sufficient budget. Sol integrates all completed units before review;
-the integrated reviewer must have authored none of the target. If roles,
-capacity, or budget are unavailable, mutation stops rather than falling back to
-Sol-only Tier 2/3 execution.
+Tier 2/3 publishes `Lane | Budget | Agents | Units` and requires Sol, one or
+more bounded makers, and an independent integrated reviewer before the first
+write. Use multiple makers only for genuinely independent, non-overlapping
+units; record IDs and owned paths, adding dependency/order only when needed.
+Sol integrates all units before review. If mandatory capacity is unavailable,
+mutation stops unless facts justify reclassification.
 
 ## Invocation packet
 

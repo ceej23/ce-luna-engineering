@@ -115,8 +115,8 @@ smallest lane that contains the risk:
 | --- | --- | --- | --- |
 | **Tier 0: Observe** | No target mutation: diagnosis, status, evidence inspection, or reporting | Sol only; focused evidence; no maker or reviewer | 15 minutes; 1 total agent |
 | **Tier 1: Small** | Localized, reversible, known solution; no cross-cutting or control-bearing decision; an explicitly requested browser-local or single-user artifact replacement may qualify when bounded and unrelated state is preserved | Sol or one bounded maker; focused verification; review only on a named trigger | 30 minutes; 2 total agents |
-| **Tier 2: Standard** | Ordinary mutation that does not qualify as Small or High-risk | One or more bounded makers, at least one independent integrated reviewer, one remediation/re-review maximum, one broad Sol check | 60 minutes; three agents is the default starting topology, not a ceiling |
-| **Tier 3: High-risk** | Architecture, public API or schema, migration, dependency, security, credentials, privacy-sensitive data, production, external writes, or irreversible effects | Full Sol/maker/reviewer boundaries; one or more bounded makers and at least one independent integrated reviewer; focused specialists only for a named risk | Explicit task budget; three agents is the default starting topology, not a ceiling |
+| **Tier 2: Standard** | Ordinary mutation that does not qualify as Small or High-risk | One or more bounded makers, at least one independent integrated reviewer, one remediation/re-review maximum, one broad Sol check | 60 minutes; scale with independently bounded units and budget |
+| **Tier 3: High-risk** | Architecture, public API or schema, migration, dependency, security, credentials, privacy-sensitive data, production, external writes, or irreversible effects | Full Sol/maker/reviewer boundaries; one or more bounded makers and at least one independent integrated reviewer; focused specialists only for a named risk | Explicit task budget; scale only when independently bounded units justify it |
 
 Tier selection is conservative: a Tier 3 trigger always wins. A Tier 1 review
 trigger includes a user request, unexpected ambiguity or scope, a
@@ -147,25 +147,22 @@ Tier 0 and Sol-only Tier 1 work may classify inline without a formal routing
 declaration. Before delegation or any Tier 2 or Tier 3 mutation, publish one
 compact routing declaration:
 
-`Lane: [selected lane] | Budget: [time/cost limit] | Agents: [topology]`
+`Lane: [selected lane] | Budget: [limit] | Agents: [Sol + makers + reviewer] | Units: [IDs]`
 
-For Tier 2 and Tier 3, the declared topology is a fail-closed precondition to
-the first write: it must include Sol, at least one bounded maker, and at least
-one independent reviewer of the integrated stable target. Lane-selected roles
-are optional only before lane selection; once Tier 2 or Tier 3 is selected,
-silence about delegation does not downgrade the topology. The implementation
-request permits this required internal delegation, while delivery actions stay
-separately authorized.
+For Tier 2/3 this declaration is fail-closed before the first write: include
+Sol, one or more bounded makers, and one independent reviewer of the integrated
+target. Roles become mandatory after lane selection; silence cannot downgrade
+the lane, and delivery remains separately authorized. Select multiple makers
+when the plan exposes two or more genuinely independent, non-overlapping units
+that fit the budget; otherwise use one. Record unit IDs and exclusive owned
+paths; add dependencies/integration order only when they exist. A one-sentence
+reason is needed only when using one maker despite independent units or adding
+reviewers/specialists. Sol integrates all units before review; no default
+panels. If mandatory capacity is unavailable, stop before mutation unless the
+facts genuinely justify reclassification.
 
-The one-maker/one-reviewer/three-agent shape is a default starting topology,
-not a ceiling. Sol may dispatch multiple independently bounded makers only
-when the routing declaration records the decomposition rationale, exclusive
-and non-overlapping write ownership, dependencies, integration order, and
-sufficient budget. Sol integrates every completed unit before review, and at
-least one integrated reviewer must have authored none of the target. Additional
-focused reviewers are allowed only for named risks; avoid default panels. If
-required roles, capacity, or budget are unavailable, stop before mutation and
-report rather than falling back to Tier 2/3 Sol-only execution.
+Keep ceremony to the minimum needed for a named risk; add mandatory fields,
+roles, or checks only when evidence shows the simpler control is insufficient.
 
 When a declaration is required, do not begin mutating work until it contains
 an explicit budget.
@@ -461,16 +458,10 @@ tool-agnostic):
 ```markdown
 ## Engineering lifecycle
 
-Use Compound Engineering with Sol/Luna as the single default lifecycle:
-Sol classifies work before execution. Observe and Small work may be Sol-only;
-Standard work uses one bounded Luna maker and one independent read-only Luna
-reviewer; High-risk work uses the full boundaries plus only focused,
-risk-justified specialists. Sol owns framing, planning, architecture, security,
-integration, synthesis, verification, and acceptance. Specialist practices
-such as TDD, domain modeling, or codebase design are optional lenses inside the
-selected lane, not competing default workflows. Stop when the lane's checks
-pass or its budget is exhausted; delivery actions always require separate
-explicit authorization.
+Use the installed `$ce-luna-engineering` skill as the governing framework for
+software-repository work. Read it before classifying or delegating work, and do
+not duplicate its detailed lifecycle here. Preserve stricter repository,
+security, testing, and delivery-authorization rules.
 ```
 
 Before editing policy, inventory every applicable AGENTS.md in the active

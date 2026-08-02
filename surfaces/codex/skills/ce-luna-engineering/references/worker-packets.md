@@ -7,14 +7,14 @@ conversation history and architecture rationale that the worker does not need.
 
 Include:
 
-1. Selected lane, budget, and routing reason.
+1. Selected lane, budget, and compact routing declaration (`Lane | Budget |
+   Agents | Units`).
 2. Absolute working directory.
-3. Objective and CE plan/unit identifiers (including a unique unit ID).
+3. Objective and CE plan/unit identifiers (including each unique unit ID).
 4. Allowed read scope.
 5. Exact write scope.
    - Ownership must be exclusive and non-overlapping with every other unit.
-   - Record dependencies and the required integration order when dispatching
-     multiple units.
+   - Record dependencies and integration order only where they exist.
 6. Acceptance criteria stated as observable behavior.
 7. Exact verification commands.
 8. Prohibited operations:
@@ -42,7 +42,7 @@ Include:
 1. Selected lane, review trigger, and routing reason.
 2. Absolute working directory and read-only requirement.
 3. Stable review base and target diff.
-4. CE plan path, unit IDs, dependency/integration order, and acceptance criteria.
+4. CE plan path, unit IDs, relevant dependency/integration order, and acceptance criteria.
 5. Review axes appropriate to the slice: correctness, regression, tests,
    accessibility, UX, performance, or maintainability.
 6. Explicit exclusions: no edits, commits, pushes, acceptance, architecture or

@@ -8,12 +8,12 @@ specialists. Sol
 retains intent, planning, architecture, security, integration, synthesis,
 verification, and engineering acceptance.
 
-For Tier 2/3, the declared topology is fail-closed before the first write and
-must include Sol, a maker, and an independent reviewer; user silence cannot
-downgrade it. Three agents is a baseline, not a ceiling. Multiple makers need
-non-overlapping ownership, dependencies, integration order, rationale, and
-budget; Sol integrates all units before review, and unavailable capacity stops
-mutation rather than falling back to Sol-only.
+For Tier 2/3, publish `Lane | Budget | Agents | Units` and require Sol, one or
+more bounded makers, and an independent integrated reviewer before the first
+write. Use multiple makers only for genuinely independent, non-overlapping
+units; record IDs and owned paths, adding dependency/order only when needed.
+Sol integrates all units before review; unavailable capacity stops mutation
+unless facts justify reclassification.
 
 For an explicitly requested, bounded, reversible browser-local or single-user
 artifact replacement that preserves unrelated state, a one-file local artifact

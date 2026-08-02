@@ -7,11 +7,13 @@ Follow the canonical policy at `policy/engineering-lifecycle.md`. Classify work
 before execution and use the smallest safe lane: Observe and Small may be
 Sol-only; Standard selects one or more bounded makers and at least one
 independent integrated reviewer; High-risk uses the same minimum with only
-named-risk specialists. Tier 3 always wins. Tier 2/3 topology is fail-closed
-before the first write and must include Sol, maker, and independent reviewer;
-three agents is a baseline, not a ceiling. Multiple makers require rationale,
-exclusive ownership, dependencies, integration order, and budget; Sol
-integrates all units before review, and missing capacity stops mutation.
+named-risk specialists. Tier 3 always wins. Tier 2/3 publishes
+`Lane | Budget | Agents | Units` and requires Sol, makers, and an independent
+integrated reviewer before the first write. Use multiple makers only for
+genuinely independent, non-overlapping units; record IDs and owned paths,
+adding dependency/order only when needed. Sol integrates all units before
+review, and missing capacity stops mutation unless facts justify
+reclassification.
 
 For an explicitly requested, bounded, reversible browser-local or single-user
 artifact replacement that preserves unrelated state, a one-file local artifact
