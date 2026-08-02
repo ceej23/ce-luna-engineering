@@ -11,7 +11,7 @@ engagements.
 Chris
   -> Hermes Infra: operational controller
   -> one standalone Codex process: repository-engineering Sol
-       -> optional lane-selected Luna maker/reviewer
+       -> required Tier 2/3 Luna maker/reviewer topology when those lanes are selected
   -> Hermes Infra: deployment, rollback and live verification
 ```
 
@@ -51,13 +51,22 @@ The standalone Codex process owns:
 
 - repository framing within Infra's immutable outcome;
 - inner lane selection, technical design, and architecture;
-- optional maker/reviewer routing inside the single engineering root;
+- maker/reviewer routing inside the single engineering root; Tier 2/3 requires
+  Sol, one or more bounded makers, and at least one independent integrated
+  reviewer before the first write;
 - integration, focused checks, at most one broad Sol check by default;
 - engineering acceptance; and
 - an operator-ready return contract.
 
 Codex may refine technical acceptance criteria. It stops rather than
 reinterpreting ambiguous product or operational intent.
+
+Three agents is a default starting topology, not a ceiling. Multiple makers
+require recorded rationale, exclusive ownership, dependencies, integration
+order, and sufficient budget. Sol integrates all completed units before review;
+the integrated reviewer must have authored none of the target. If roles,
+capacity, or budget are unavailable, mutation stops rather than falling back to
+Sol-only Tier 2/3 execution.
 
 ## Invocation packet
 

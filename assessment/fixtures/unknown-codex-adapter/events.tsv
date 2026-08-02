@@ -1,7 +1,7 @@
 schema_version	run_id	event_sequence	event_type	policy_ref	adapter_ref	surface	control_id	capability	route_requested	route_configured	route_observed	artifact_ref	result	exception_ref
-assessment-run-events/v1	unknown-adapter	1	frame	e2d9b640b83e2ed2fd270a4c28d6841bca0bd18a3b87cfe7ff2c31b939a37109	unknown	codex	scope	observed	luna-maker	luna-maker	luna-maker	artifact-1	pass	
-assessment-run-events/v1	unknown-adapter	2	make	e2d9b640b83e2ed2fd270a4c28d6841bca0bd18a3b87cfe7ff2c31b939a37109	unknown	codex	control	attested	luna-maker	luna-maker	luna-maker	artifact-2	pass	
-assessment-run-events/v1	unknown-adapter	3	integrate	e2d9b640b83e2ed2fd270a4c28d6841bca0bd18a3b87cfe7ff2c31b939a37109	unknown	codex	evidence	observed	luna-maker	luna-maker	luna-maker	artifact-3	pass	
-assessment-run-events/v1	unknown-adapter	4	review	e2d9b640b83e2ed2fd270a4c28d6841bca0bd18a3b87cfe7ff2c31b939a37109	unknown	codex	independence	enforced	luna-reviewer	luna-reviewer	luna-reviewer	artifact-4	pass	
-assessment-run-events/v1	unknown-adapter	5	synthesize	e2d9b640b83e2ed2fd270a4c28d6841bca0bd18a3b87cfe7ff2c31b939a37109	unknown	codex	delivery	attested	luna-maker	luna-maker	luna-maker	artifact-5	pass	
-assessment-run-events/v1	unknown-adapter	6	seal	e2d9b640b83e2ed2fd270a4c28d6841bca0bd18a3b87cfe7ff2c31b939a37109	unknown	codex	evidence	observed	luna-maker	luna-maker	luna-maker	artifact-6	pass	
+assessment-run-events/v1	unknown-adapter	1	frame	216e34107376599f1fd68d6f70c76ee5c881242637b2e9580ab53066d4ff1471	unknown	codex	scope	observed	luna-maker	luna-maker	luna-maker	artifact-1	pass	none
+assessment-run-events/v1	unknown-adapter	2	make	216e34107376599f1fd68d6f70c76ee5c881242637b2e9580ab53066d4ff1471	unknown	codex	control	attested	luna-maker	luna-maker	luna-maker	artifact-2	pass	none
+assessment-run-events/v1	unknown-adapter	3	integrate	216e34107376599f1fd68d6f70c76ee5c881242637b2e9580ab53066d4ff1471	unknown	codex	evidence	observed	luna-maker	luna-maker	luna-maker	artifact-3	pass	none
+assessment-run-events/v1	unknown-adapter	4	review	216e34107376599f1fd68d6f70c76ee5c881242637b2e9580ab53066d4ff1471	unknown	codex	independence	enforced	luna-reviewer	luna-reviewer	luna-reviewer	artifact-4	pass	none
+assessment-run-events/v1	unknown-adapter	5	synthesize	216e34107376599f1fd68d6f70c76ee5c881242637b2e9580ab53066d4ff1471	unknown	codex	delivery	attested	luna-maker	luna-maker	luna-maker	artifact-5	pass	none
+assessment-run-events/v1	unknown-adapter	6	seal	216e34107376599f1fd68d6f70c76ee5c881242637b2e9580ab53066d4ff1471	unknown	codex	evidence	observed	luna-maker	luna-maker	luna-maker	artifact-6	pass	none

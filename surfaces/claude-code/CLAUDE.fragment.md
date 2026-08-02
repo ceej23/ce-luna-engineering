@@ -2,10 +2,18 @@
 
 Follow the locally adopted canonical engineering lifecycle policy. Classify the
 work before execution and use the smallest safe lane. Observe and Small may be
-Sol-only; Standard uses a bounded implementer and independent reviewer;
-High-risk uses full role boundaries and only risk-justified specialists. Sol
+Sol-only; Standard uses one or more bounded makers and at least one independent
+integrated reviewer; High-risk uses the same minimum plus only risk-justified
+specialists. Sol
 retains intent, planning, architecture, security, integration, synthesis,
 verification, and engineering acceptance.
+
+For Tier 2/3, the declared topology is fail-closed before the first write and
+must include Sol, a maker, and an independent reviewer; user silence cannot
+downgrade it. Three agents is a baseline, not a ceiling. Multiple makers need
+non-overlapping ownership, dependencies, integration order, rationale, and
+budget; Sol integrates all units before review, and unavailable capacity stops
+mutation rather than falling back to Sol-only.
 
 For an explicitly requested, bounded, reversible browser-local or single-user
 artifact replacement that preserves unrelated state, a one-file local artifact

@@ -9,9 +9,12 @@ Include:
 
 1. Selected lane, budget, and routing reason.
 2. Absolute working directory.
-3. Objective and CE plan/unit identifiers.
+3. Objective and CE plan/unit identifiers (including a unique unit ID).
 4. Allowed read scope.
 5. Exact write scope.
+   - Ownership must be exclusive and non-overlapping with every other unit.
+   - Record dependencies and the required integration order when dispatching
+     multiple units.
 6. Acceptance criteria stated as observable behavior.
 7. Exact verification commands.
 8. Prohibited operations:
@@ -39,7 +42,7 @@ Include:
 1. Selected lane, review trigger, and routing reason.
 2. Absolute working directory and read-only requirement.
 3. Stable review base and target diff.
-4. CE plan path, unit IDs, and acceptance criteria.
+4. CE plan path, unit IDs, dependency/integration order, and acceptance criteria.
 5. Review axes appropriate to the slice: correctness, regression, tests,
    accessibility, UX, performance, or maintainability.
 6. Explicit exclusions: no edits, commits, pushes, acceptance, architecture or
@@ -51,7 +54,8 @@ Include:
    - violated requirement or criterion;
    - impact;
    - bounded remediation direction.
-8. Return `no findings` explicitly when the evidence supports it.
+8. Confirm the reviewer authored none of the integrated target and return `no
+   findings` explicitly when the evidence supports it.
 
 Capture worktree status immediately before and after the reviewer. A changed
 worktree invalidates the lane even when the reviewer claims it was report-only.

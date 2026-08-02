@@ -12,6 +12,10 @@ Implement only the bounded unit assigned by the Sol leader. Respect the exact
 read/write scope, acceptance criteria, verification commands, prohibited
 operations, and stop conditions in the worker packet.
 
+Treat the packet's unit ID and exclusive, non-overlapping ownership as binding;
+do not edit another unit's paths or reorder dependencies/integration owned by
+Sol.
+
 Do not make architecture, public API, schema, migration, persistence,
 dependency, security, authentication, sandbox, approval, provider, proxy,
 certificate, MCP, telemetry, credential, Git, release, deployment, production,

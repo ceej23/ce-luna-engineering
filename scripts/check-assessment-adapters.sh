@@ -18,6 +18,7 @@ for path in \
   policy/engineering-lifecycle.md \
   policy/engineering-assessment.md \
   assessment/schema/run-events-v1.tsv \
+  assessment/schema/run-events-v2.tsv \
   assessment/schema/capability-matrix-v1.tsv \
   surfaces/codex/skills/ce-assess-engineering/SKILL.md; do
   [[ -f "$repo_root/$path" ]] || die "missing required assessment artifact: $path"
@@ -42,6 +43,7 @@ require_text surfaces/cursor/engineering-workflow.mdc "unverified"
 reject_text surfaces/claude-code/CLAUDE.fragment.md "../../policy/"
 require_text manifest/codex-files.tsv "surfaces/codex/skills/ce-assess-engineering/SKILL.md"
 require_text manifest/codex-files.tsv "surfaces/codex/skills/ce-assess-engineering/agents/openai.yaml"
+require_text manifest/codex-files.tsv $'assessment/schema/run-events-v2.tsv\tskills/ce-assess-engineering/runtime/assessment/schema/run-events-v2.tsv'
 
 for surface in codex claude-code cursor ci; do
   grep -q "^$surface" "$repo_root/assessment/schema/capability-matrix-v1.tsv" || die "missing capability rows for $surface"

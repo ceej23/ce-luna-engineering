@@ -23,7 +23,26 @@ Terminal results are immutable. `EXCEPTION` does not replace its underlying resu
 
 ## Evidence and privacy
 
-Bundles contain only fields defined in `assessment/schema/run-events-v1.tsv` and capability declarations in `assessment/schema/capability-matrix-v1.tsv`. They may include repository-relative identifiers, policy and adapter digests, Git object identifiers, lifecycle control IDs, bounded status values, and opaque identifiers for permitted artifacts.
+Version 2 run events may record bounded lane, mutation, topology, actor,
+maker-unit, repository-relative ownership, decomposition, integration, and
+reviewer facts. Frame and synthesis events identify the accountable Sol.
+The report-only validator validates only supplied allowlisted evidence; it does
+not establish that a host actually dispatched the recorded actors. For tier 2
+and tier 3, explicit Sol-only topology, an absent independent reviewer, a
+reviewer actor matching a maker, or overlapping ownership is a control failure;
+missing or unsupported topology evidence is unverified.
+
+Version 2 deliberately does not carry exception references. A version 2 bundle
+with an exception record or an undeclared exception field is `UNVERIFIED`; a
+future schema version must define complete exception semantics before such a
+bundle can produce `EXCEPTION`.
+
+Bundles contain only fields defined in the applicable versioned run-events
+schema under `assessment/schema/` and capability declarations in
+`assessment/schema/capability-matrix-v1.tsv`. They may include
+repository-relative identifiers, policy and adapter digests, Git object
+identifiers, lifecycle control IDs, bounded status values, and opaque
+identifiers for permitted artifacts.
 
 The validator verifies the policy digest and bundle structure; it does not read or authenticate external artifact contents. An artifact reference is evidence of where a permitted, separately governed record is held, not proof of that record's contents. Signed capture or external artifact authentication is deferred until a host can provide it without widening the privacy boundary.
 

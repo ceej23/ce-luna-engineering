@@ -95,8 +95,8 @@ class CanonicalProportionalityContractTests(PolicyContractTestCase):
             "Tier 2": (
                 "Tier 2: Standard",
                 "ordinary mutation",
-                "one maker",
-                "reviewer",
+                "one or more bounded makers",
+                "at least one independent integrated reviewer",
                 "one remediation/re-review",
             ),
             "Tier 3": (
@@ -126,6 +126,40 @@ class CanonicalProportionalityContractTests(PolicyContractTestCase):
 
 
 class TopologyAndAuthorityContractTests(PolicyContractTestCase):
+    def test_tier_two_three_fail_closed_and_scale_without_ceiling(self) -> None:
+        policy = NORMALIZED["canonical policy"]
+        for fragment in (
+            "fail-closed precondition to the first write",
+            "include Sol",
+            "at least one bounded maker",
+            "at least one independent reviewer",
+            "silence about delegation does not downgrade",
+            "default starting topology, not a ceiling",
+            "multiple independently bounded makers",
+            "exclusive and non-overlapping write ownership",
+            "dependencies",
+            "integration order",
+            "integrates every completed unit before review",
+            "authored none of the target",
+            "avoid default panels",
+            "stop before mutation",
+            "falling back to Tier 2/3 Sol-only",
+        ):
+            self.assertIn(normalized(fragment), policy)
+
+    def test_worker_packet_records_units_ownership_dependencies_and_independence(
+        self,
+    ) -> None:
+        self.assert_fragments(
+            "Codex worker packets",
+            (
+                "unique unit ID",
+                "exclusive and non-overlapping",
+                "dependencies and the required integration order",
+                "reviewer authored none of the integrated target",
+            ),
+        )
+
     def test_direct_codex_is_default_and_mediation_is_special(self) -> None:
         for document_name in (
             "canonical policy",

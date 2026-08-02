@@ -8,9 +8,14 @@ Use `ce-luna-engineering` as the governing framework and the canonical policy
 at `policy/engineering-lifecycle.md`. Classify before execution and publish a
 lane, budget, and topology before delegation or Standard/High-risk mutation.
 Observe and Sol-only Small work may classify inline without a formal routing
-declaration; Standard uses one bounded maker and one independent reviewer;
-High-risk uses the full boundaries plus only focused, risk-justified
-specialists. Tier 3 always wins.
+declaration; Standard uses one or more bounded makers and at least one
+independent integrated reviewer; High-risk uses the same minimum plus only
+focused, risk-justified specialists. Tier 3 always wins. Tier 2/3 topology is
+fail-closed before the first write and must include Sol, a maker, and an
+independent reviewer; three agents is a baseline, not a ceiling. Multiple
+makers require rationale, non-overlapping ownership, dependencies, integration
+order, and budget; Sol integrates all units before review, and missing capacity
+stops mutation rather than falling back to Sol-only.
 
 Explicitly requested browser-local or single-user artifact replacements may be
 Tier 1 Small when bounded and unrelated state is preserved. One-file local

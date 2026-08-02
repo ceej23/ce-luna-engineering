@@ -25,6 +25,7 @@ for required in \
   "$runtime/scripts/assessment_safe_open.py" \
   "$runtime/scripts/assessment_window.py" \
   "$runtime/assessment/schema/run-events-v1.tsv" \
+  "$runtime/assessment/schema/run-events-v2.tsv" \
   "$runtime/assessment/schema/capability-matrix-v1.tsv" \
   "$runtime/assessment/schema/validated-summary-v1.tsv" \
   "$runtime/policy/engineering-assessment.md" \
@@ -39,6 +40,10 @@ mkdir -p "$bundle"
 cp -p "$runtime/test-fixtures/valid-codex-run/events.tsv" "$bundle/events.tsv"
 summary="$tmp/summary.tsv"
 bash "$runtime/scripts/validate-assessment.sh" "$bundle" --summary "$summary" >/dev/null
+v2_bundle="$tmp/v2-bundle"
+mkdir -p "$v2_bundle"
+cp -p "$runtime/test-fixtures/v2-tier2-single/events.tsv" "$v2_bundle/events.tsv"
+bash "$runtime/scripts/validate-assessment.sh" "$v2_bundle" >/dev/null
 "${window[@]}" --agent maker-a --repository repo-a ingest "$summary" >/dev/null
 "${window[@]}" --agent maker-a --repository repo-a report --partial >/dev/null
 python3 "$runtime/scripts/assessment_window.py" --codex-root "$codex_root" --agent maker-a --repository repo-a --now 2026-07-25T12:00:00Z if-due >/dev/null

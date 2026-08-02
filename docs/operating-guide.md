@@ -31,8 +31,14 @@ policy-first, cross-surface review path as other lifecycle changes.
 ## Choose the engagement topology
 
 Codex Desktop and Codex CLI use the direct topology by default: the user works
-with one engineering Sol, which selects only the maker or reviewer roles
-required by the repository lane.
+with one engineering Sol. Observe and Small may remain Sol-only; once Standard
+or High-risk is selected, the topology is mandatory and fail-closed before the
+first write: Sol, one or more bounded makers, and at least one independent
+reviewer of the integrated stable target. Three agents is only the default
+starting topology, not a ceiling. Multiple makers require a recorded rationale,
+exclusive ownership, dependencies, integration order, and sufficient budget;
+Sol integrates all completed units before review, and unavailable capacity
+stops mutation rather than downgrading to Sol-only.
 
 A mediated infrastructure operator is a special composition, not the default.
 Use the [Infra-to-Codex adapter](../surfaces/hermes-infra/README.md) when an

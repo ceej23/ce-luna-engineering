@@ -115,8 +115,8 @@ smallest lane that contains the risk:
 | --- | --- | --- | --- |
 | **Tier 0: Observe** | No target mutation: diagnosis, status, evidence inspection, or reporting | Sol only; focused evidence; no maker or reviewer | 15 minutes; 1 total agent |
 | **Tier 1: Small** | Localized, reversible, known solution; no cross-cutting or control-bearing decision; an explicitly requested browser-local or single-user artifact replacement may qualify when bounded and unrelated state is preserved | Sol or one bounded maker; focused verification; review only on a named trigger | 30 minutes; 2 total agents |
-| **Tier 2: Standard** | Ordinary mutation that does not qualify as Small or High-risk | One bounded maker, one independent reviewer, one remediation/re-review maximum, one broad Sol check | 60 minutes; 3 total agents |
-| **Tier 3: High-risk** | Architecture, public API or schema, migration, dependency, security, credentials, privacy-sensitive data, production, external writes, or irreversible effects | Full Sol/maker/reviewer boundaries; focused specialists only for a named risk | Explicit task budget; 3 total agents before justified escalation |
+| **Tier 2: Standard** | Ordinary mutation that does not qualify as Small or High-risk | One or more bounded makers, at least one independent integrated reviewer, one remediation/re-review maximum, one broad Sol check | 60 minutes; three agents is the default starting topology, not a ceiling |
+| **Tier 3: High-risk** | Architecture, public API or schema, migration, dependency, security, credentials, privacy-sensitive data, production, external writes, or irreversible effects | Full Sol/maker/reviewer boundaries; one or more bounded makers and at least one independent integrated reviewer; focused specialists only for a named risk | Explicit task budget; three agents is the default starting topology, not a ceiling |
 
 Tier selection is conservative: a Tier 3 trigger always wins. A Tier 1 review
 trigger includes a user request, unexpected ambiguity or scope, a
@@ -148,6 +148,24 @@ declaration. Before delegation or any Tier 2 or Tier 3 mutation, publish one
 compact routing declaration:
 
 `Lane: [selected lane] | Budget: [time/cost limit] | Agents: [topology]`
+
+For Tier 2 and Tier 3, the declared topology is a fail-closed precondition to
+the first write: it must include Sol, at least one bounded maker, and at least
+one independent reviewer of the integrated stable target. Lane-selected roles
+are optional only before lane selection; once Tier 2 or Tier 3 is selected,
+silence about delegation does not downgrade the topology. The implementation
+request permits this required internal delegation, while delivery actions stay
+separately authorized.
+
+The one-maker/one-reviewer/three-agent shape is a default starting topology,
+not a ceiling. Sol may dispatch multiple independently bounded makers only
+when the routing declaration records the decomposition rationale, exclusive
+and non-overlapping write ownership, dependencies, integration order, and
+sufficient budget. Sol integrates every completed unit before review, and at
+least one integrated reviewer must have authored none of the target. Additional
+focused reviewers are allowed only for named risks; avoid default panels. If
+required roles, capacity, or budget are unavailable, stop before mutation and
+report rather than falling back to Tier 2/3 Sol-only execution.
 
 When a declaration is required, do not begin mutating work until it contains
 an explicit budget.
