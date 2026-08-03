@@ -11,6 +11,25 @@ def read(relative_path: str) -> str:
     return (ROOT / relative_path).read_text(encoding="utf-8")
 
 
+def parse_toml_header(text: str) -> dict[str, str]:
+    fields: dict[str, str] = {}
+    for line in text.splitlines():
+        if line.startswith("developer_instructions = "):
+            break
+        stripped = line.strip()
+        if not stripped or stripped.startswith("#"):
+            continue
+        key, separator, value = stripped.partition("=")
+        quoted_value = value.strip()
+        if (
+            separator
+            and quoted_value.startswith('"')
+            and quoted_value.endswith('"')
+        ):
+            fields[key.strip()] = quoted_value[1:-1]
+    return fields
+
+
 def normalized(text: str) -> str:
     for dash in ("\N{EN DASH}", "\N{EM DASH}", "\N{NON-BREAKING HYPHEN}"):
         text = text.replace(dash, "-")
@@ -75,6 +94,20 @@ class PolicyContractTestCase(unittest.TestCase):
             f"{document_name} does not express {concept}; expected one of "
             f"{alternatives}",
         )
+
+
+class ActiveCodexLunaProfileContractTests(PolicyContractTestCase):
+    def test_active_luna_profiles_use_gpt_56_luna_max_effort(self) -> None:
+        profiles = {
+            "Luna maker": read("surfaces/codex/agents/luna-maker.toml"),
+            "Luna reviewer": read("surfaces/codex/agents/luna-reviewer.toml"),
+        }
+        for profile_name, profile_text in profiles.items():
+            profile = parse_toml_header(profile_text)
+            with self.subTest(profile=profile_name):
+                self.assertEqual(profile.get("model"), "gpt-5.6-luna")
+                self.assertEqual(profile.get("model_reasoning_effort"), "max")
+                self.assertIn("Luna max", profile.get("description", ""))
 
 
 class CanonicalProportionalityContractTests(PolicyContractTestCase):
